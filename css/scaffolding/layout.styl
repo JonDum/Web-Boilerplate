@@ -1,0 +1,59 @@
+// base styles
+
+html, body
+    overflow-x hidden // temporary
+    background white
+
+.container
+    margin 0 auto
+    padding 0 5%
+    transition width 0.4s ease
+
+    @media $bp-mobile
+        width 100%
+        padding-left 2em
+        padding-right 2em
+    @media $bp-tablet
+        width 768px
+    @media $bp-desktop
+        width 998px
+    @media $bp-desktop-wide
+        width 1200px
+
+
+//dark
+
+
+
+// the lead paragraph on each page, below hero
+.lead-copy
+    width 80%
+    text-align center
+    margin 0 auto
+    //font-size 2em
+    @media $bp-mobile
+        width 100%
+    &.tal
+        text-align left
+    + .lead-copy
+        margin-top 1.5em
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
