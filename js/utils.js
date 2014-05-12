@@ -29,15 +29,21 @@ function anyParentHasClass(el, name)
 
 function addClass(el, name)
 {
-    if(!hasClass(el, name)) { el.className += (el.className ? ' ' : '') +name; }
+    if(name.indexOf(' ') > -1)
+        name.split(' ').forEach(function(val) { addClass(el, val )});
+
+    if(!hasClass(el, name))
+        el.className += (el.className ? ' ' : '') +name;
 }
 
 
 function removeClass(el, name)
 {
-    if(hasClass(el, name)) {
+    if(name.indexOf(' ') > -1)
+        name.split(' ').forEach(function(val) { removeClass(el, val )});
+
+    if(hasClass(el, name)) 
         el.className=el.className.replace(new RegExp('(\\s|^)'+name+'(\\s|$)'),' ').replace(/^\s+|\s+$/g, '');
-    }
 }
 
 function toggleClass(el, name)
