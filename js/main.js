@@ -13,16 +13,10 @@
  *  Check the page had loaded and is ready to run javascript stuffs
  *
  */
-var readyStateCheckInterval = setInterval(readyCheck, 10);
-
-function readyCheck()
-{
-    if(document.readyState === 'complete')
-    {
-        clearInterval(readyStateCheckInterval);
-        init(window, document);
-    }
-}
+if(document.readyState == 'complete' || document.readyState == 'interactive')
+    init();
+else
+    document.addEventListener("DOMContentLoaded", init);
 
 
 function init(window, document)
