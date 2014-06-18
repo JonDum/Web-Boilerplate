@@ -112,7 +112,11 @@ function querySelectorForEach(queries, callback) {
             elements = elements.concat(Array.prototype.slice.call(document.querySelectorAll(query)));
     });
 
-    elements.forEach(callback);
+    elements.forEach(function(el){
+
+        callback(el, elements);
+
+    });
 
 }
 
