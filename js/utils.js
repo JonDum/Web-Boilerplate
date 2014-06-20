@@ -64,6 +64,20 @@ function q(sel) {
 
 }
 
+function getPosition(element)
+{
+  var pos = {x: 0, y: 0};
+
+  while(element) {
+    pos.x += (element.offsetLeft - element.scrollLeft + element.clientLeft);
+    pos.y += (element.offsetTop - element.scrollTop + element.clientTop);
+    element = element.offsetParent;
+  }
+
+  return pos;
+}
+
+
 function elementIndexOf(el) {
 
     var a = childElementsOf(el.parentNode);
