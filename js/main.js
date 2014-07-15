@@ -1,13 +1,18 @@
-// These are all to be included on every page
-// Otherwise it will be loaded in via script loader
-
-// @include vendor/TweenMax.js
-// @include vendor/retina.js
-
-// @include polyfills.js
-
 (function(window, document) {
 
+    if(DEBUG)
+        console.log('DEBUG mode is enabled.');
+
+    if(PRODUCTION)
+        console.log('PRODUCTION mode is enabled.');
+
+    /* Dependencies */
+
+    //these export globals
+    require('utils');
+    require('polyfills');
+
+    //var $ = require('jquery');
 
     /**
      *
@@ -19,7 +24,6 @@
     else
         document.addEventListener("DOMContentLoaded", init);
 
-    // @include utils.js
 
     function init()
     {
@@ -67,15 +71,6 @@
             removeEventListener('scroll', onScroll);
         }
 
-    }
-
-
-    function injectScript(src)
-    {
-        var s = document.createElement('script');
-        s.src = src;
-        s.async = true;
-        document.body.appendChild(s);
     }
 
 })(window, document);

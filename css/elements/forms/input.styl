@@ -1,0 +1,25 @@
+
+
+$inputStyles
+    outline none
+    padding 1em
+    font-size 1.33em
+    border 1px solid #e0e0e0
+    color #454545
+    transition border 0.4s ease
+    background-color white
+
+    &.error
+        border-color red
+
+
+input
+    @extend $inputStyles
+    &[type='hidden']
+        display none
+
+textarea
+    @extend $inputStyles
+
+
+

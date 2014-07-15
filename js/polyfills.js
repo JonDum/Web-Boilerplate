@@ -1,7 +1,8 @@
 
-// @include polyfill/fastclick.js
-// @include polyfill/placeholders.js
 
+// It's ok for polyfills to write to globals here
+
+window.FastClick = require('fastclick');
 
 if (!window.getComputedStyle) {
     window.getComputedStyle = function(el, pseudo) {
@@ -10,7 +11,7 @@ if (!window.getComputedStyle) {
             var re = /(\-([a-z]){1})/g;
             if (prop == 'float') prop = 'styleFloat';
             if (re.test(prop)) {
-                prop = prop.replace(re, function () {
+                prop = prop.replace(re, function() {
                     return arguments[2].toUpperCase();
                 });
             }
@@ -21,31 +22,53 @@ if (!window.getComputedStyle) {
 }
 
 
-(function(win, doc){
-	if(win.addEventListener)return;		//No need to polyfill
+if(!('contains' in Array.prototype)) {
+    Array.prototype.contains = function(arr, startIndex) {
+        return ''.indexOf.call(this, arr, startIndex) !== -1;
+    };
+}
 
-	function docHijack(p){var old = doc[p];doc[p] = function(v){return addListen(old(v))}}
-	function addEvent(on, fn, self){
-		return (self = this).attachEvent('on' + on, function(e){
-			var e = e || win.event;
-			e.preventDefault  = e.preventDefault  || function(){e.returnValue = false}
-			e.stopPropagation = e.stopPropagation || function(){e.cancelBubble = true}
-			fn.call(self, e);
-		});
-	}
-	function addListen(obj, i){
-		if(i = obj.length)while(i--)obj[i].addEventListener = addEvent;
-		else obj.addEventListener = addEvent;
-		return obj;
-	}
 
-	addListen([doc, win]);
-	if('Element' in win)win.Element.prototype.addEventListener = addEvent;			//IE8
-	else{		//IE < 8
-		doc.attachEvent('onreadystatechange', function(){addListen(doc.all)});		//Make sure we also init at domReady
-		docHijack('getElementsByTagName');
-		docHijack('getElementById');
-		docHijack('createElement');
-		addListen(doc.all);	
-	}
+(function(win, doc) {
+    if (win.addEventListener) return; //No need to polyfill
+
+    function docHijack(p) {
+        var old = doc[p];
+        doc[p] = function(v) {
+            return addListen(old(v))
+        }
+    }
+
+    function addEvent(on, fn, self) {
+        return (self = this).attachEvent('on' + on, function(e) {
+            var e = e || win.event;
+            e.preventDefault = e.preventDefault || function() {
+                e.returnValue = false
+            }
+            e.stopPropagation = e.stopPropagation || function() {
+                e.cancelBubble = true
+            }
+            fn.call(self, e);
+        });
+    }
+
+    function addListen(obj, i) {
+        if (i = obj.length)
+            while (i--) obj[i].addEventListener = addEvent;
+        else obj.addEventListener = addEvent;
+        return obj;
+    }
+
+    addListen([doc, win]);
+    if ('Element' in win) win.Element.prototype.addEventListener = addEvent; //IE8
+    else { //IE < 8
+        doc.attachEvent('onreadystatechange', function() {
+            addListen(doc.all)
+        }); //Make sure we also init at domReady
+        docHijack('getElementsByTagName');
+        docHijack('getElementById');
+        docHijack('createElement');
+        addListen(doc.all);
+    }
+
 })(window, document);

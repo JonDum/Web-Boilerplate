@@ -5,31 +5,62 @@ module.exports = function(grunt) {
     require('time-grunt')(grunt);
 
     //handles plugins
-    require('jit-grunt')(grunt); 
+    require('jit-grunt')(grunt);
+
+    var webpack = require('webpack');
+    var webpackConfig = require("./webpack.config.js");
+
+    var excludedFiles = ['!node_modules/**', '!build/**', '!Gruntfile.js', '!package.json', '!README','!.git','!.git/**'];
 
     // Project configuration.
     grunt.initConfig({
-
-        // Task configuration.
-        excludedFiles: ['!node_modules/**', '!build/**', '!Gruntfile.js', '!package.json', '!README','!.git','!.git/**'],
 
         clean: {
             build: ['build/'],
         },
 
+        webpack: {
+			options: webpackConfig,
+			development: {
+				devtool: "sourcemap",
+				debug: true,
+                production: false,
+                plugins: webpackConfig.plugins.concat(
+                    new webpack.DefinePlugin({
+                        DEBUG: true,
+                        PRODUCTION: false
+                    })
+                )
+			},
+			production: {
+				plugins: webpackConfig.plugins.concat(
+					new webpack.DefinePlugin({
+                        DEBUG: false,
+                        PRODUCTION: true
+					}),
+					new webpack.optimize.DedupePlugin(),
+					new webpack.optimize.UglifyJsPlugin()
+				)
+			},
+		},
 
-        copy: {
+        rsync: {
+            options: {
+                args: ["-vPc"],
+                exclude: excludedFiles,
+                recursive: true
+            },
 
             static: {
-                files: [
-                    {expand: true, cwd: 'static/', src: ['**'], dest: 'build/', dot:true},
-                ]
+                options: {
+                    src: "static/",
+                    dest: "build/"
+                }
             }
 
         },
 
         preprocess: {
-
 
             html: {
                 files: [
@@ -43,23 +74,9 @@ module.exports = function(grunt) {
                 }
             },
 
-            js: {
-                files: [
-                    {src: 'js/main.js', dest: 'build/js/main.js'},
-                ],
-                options: {
-                    context : {
-                        debug: true,
-                        DEBUG: true,
-                        development: true
-                    }
-                }
-            },
-
             production: {
                 files: [
                     {expand: true, cwd: 'pages/', src: ['**/*.html'], dest: 'build/'},
-                    {src: 'js/main.js', dest: 'build/js/main.js'},
                 ],
                 options: {
                     context : {
@@ -71,21 +88,22 @@ module.exports = function(grunt) {
 
         },
 
-
         stylus: {
-            development:
-                {
+            development: {
+                options: {
+                    compress: false
+                },
                 files: {
-                    'build/css/styles.css': 'css/styles.styl'
+                    'build/css/common.css': 'css/common.styl'
                 }
             },
 
             production: {
                 options: {
-                    yuicompress: true
+                    compress: true
                 },
                 files: {
-                    'build/css/styles.css': 'css/styles.styl'
+                    'build/css/common.css': 'css/common.styl'
                 }
             }
         },
@@ -93,15 +111,7 @@ module.exports = function(grunt) {
         csso: {
             production: {
                 report: 'min',
-                files: {'build/css/styles.css': ['build/css/styles.css']}
-            }
-        },
-
-        uglify: {
-            production: {
-                files: {
-                    'build/js/main.js': ['build/js/main.js'],
-                }
+                files: {'build/css/common.css': ['build/css/common.css']}
             }
         },
 
@@ -119,45 +129,29 @@ module.exports = function(grunt) {
             },
             js: {
                 files: ['js/**/*.js'],
-                tasks: ['preprocess:js']
+                tasks: ['webpack:development']
             },
             static: {
                 files: ['static/**/*'],
-                tasks: ['copy:static']
+                tasks: ['rsync:static']
             }
         }
     });
 
 
-    grunt.registerTask('preprocess:development', ['preprocess:js', 'preprocess:html']);
+    grunt.registerTask('preprocess:development', ['preprocess:html']);
 
-    grunt.registerTask('dev', ['clean', 'preprocess:development', 'copy:static', 'stylus:development']);
+    grunt.registerTask('dev', ['clean', 'preprocess:development', 'rsync:static', 'stylus:development', 'webpack:development']);
 
     grunt.registerTask('debug', ['default', 'watch']);
 
     grunt.registerTask('default', ['dev']);
 
     // Staging is production preprocessing without minifiaction/obfuscation
-    grunt.registerTask('staging', ['preprocess:production', 'copy:static', 'stylus:production']);
+    grunt.registerTask('staging', ['preprocess:production', 'rsync:static']);
 
     // production environment
-    grunt.registerTask('production', ['clean', 'preprocess:production', 'uglify', 'copy:static', 'stylus:production', 'csso:production']);
+    grunt.registerTask('production', ['clean', 'preprocess:production', 'rsync:static', 'stylus:production', 'csso', 'webpack:production']);
 
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
