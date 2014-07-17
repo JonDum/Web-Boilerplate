@@ -11,6 +11,15 @@ utils.isArray = function(obj) {
     return (Object.prototype.toString.call(obj) === '[object Array]')
 }
 
+utils.isEmpty = function(obj)
+{
+    for(var prop in obj) {
+        if(obj.hasOwnProperty(prop))
+            return false;
+    }
+
+    return true;
+}
 
 utils.hasClass = function(el, name) {
     if (!el)
@@ -222,6 +231,10 @@ utils.formEncodeObject = function(obj, alsoEncodeURI) {
     return alsoEncodeURI ? encodeURIComponent(encoded) : encoded;
 }
 
+/**
+ * This is document-space position. For screen-space position use el.getBoundingClientRect()
+ * @param element
+*/
 
 utils.offset = function(element) {
     var curleft = curtop = 0;
