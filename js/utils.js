@@ -11,6 +11,12 @@ utils.isArray = function(obj) {
     return (Object.prototype.toString.call(obj) === '[object Array]')
 }
 
+utils.isFunction = function(obj)
+{
+    return typeof obj === "function";
+}
+
+
 utils.isEmpty = function(obj)
 {
     for(var prop in obj) {
