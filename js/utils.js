@@ -92,7 +92,13 @@ utils.q = function(sel, sel2) {
         query = sel2;
     }
 
-    return container.querySelectorAll(query);
+    var result = container.querySelectorAll(query);
+
+    if(result.length == 1)
+        result = result[0];
+
+    return result;
+
 
 }
 
@@ -290,6 +296,7 @@ module.exports = utils;
 
 for(var util in utils)
     window[util] = utils[util];
+
 
 
 
