@@ -11,11 +11,15 @@ utils.isArray = function(obj) {
     return (Object.prototype.toString.call(obj) === '[object Array]')
 }
 
+utils.isElement = function(obj)
+{
+    return !!(obj && obj.nodeType == 1);
+}
+
 utils.isFunction = function(obj)
 {
     return typeof obj === "function";
 }
-
 
 utils.isEmpty = function(obj)
 {
@@ -27,13 +31,6 @@ utils.isEmpty = function(obj)
     return true;
 }
 
-utils.hasClass = function(el, name) {
-    if (!el)
-        return;
-    return new RegExp('(\\s|^)' + name + '(\\s|$)').test(el.className);
-}
-
-
 utils.anyParentHasClass = function(el, name) {
     var searchDepth = 5;
 
@@ -43,6 +40,11 @@ utils.anyParentHasClass = function(el, name) {
     return searchDepth > 0 ? el : null;
 }
 
+utils.hasClass = function(el, name) {
+    if (!el)
+        return;
+    return new RegExp('(\\s|^)' + name + '(\\s|$)').test(el.className);
+}
 
 utils.addClass = function(el, name) {
     if (name.indexOf(' ') > -1)
@@ -73,16 +75,29 @@ utils.toggleClass = function(el, name) {
 }
 
 
-utils.q = function(sel) {
+utils.q = function(sel, sel2) {
 
-    if (sel[0] == '#' && sel.indexOf(' ') == -1)
-        return document.getElementById(sel.slice(1));
-    else
-        return document.querySelector(sel);
+    var container = document;
+    var query = sel;
+
+    if(query[0] == '#' && query.indexOf(' ') == -1)
+        return document.getElementById(query.slice(1));
+
+    if(sel instanceof NodeList && sel.length == 1)
+        sel = sel[0];
+
+    if(isElement(sel) && sel2.length > 0)
+    {
+        container = sel;
+        query = sel2;
+    }
+
+    return container.querySelectorAll(query);
 
 }
 
 utils.getPosition = function(element) {
+
     var pos = {
         x: 0,
         y: 0
@@ -237,11 +252,11 @@ utils.formEncodeObject = function(obj, alsoEncodeURI) {
     return alsoEncodeURI ? encodeURIComponent(encoded) : encoded;
 }
 
+
 /**
  * This is document-space position. For screen-space position use el.getBoundingClientRect()
  * @param element
 */
-
 utils.offset = function(element) {
     var curleft = curtop = 0;
 
@@ -275,8 +290,6 @@ module.exports = utils;
 
 for(var util in utils)
     window[util] = utils[util];
-
-
 
 
 
