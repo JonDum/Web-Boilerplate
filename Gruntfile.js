@@ -89,24 +89,26 @@ module.exports = function(grunt) {
         },
 
         stylus: {
+            options: {
+                compress: false
+            },
+
             development: {
-                options: {
-                    compress: false
-                },
-                files: {
-                    'build/css/common.css': 'css/common.styl'
-                }
+                files: [
+                    {expand: true, cwd: 'css/', src: ['*.styl'], dest: 'build/css'},
+                ],
             },
 
             production: {
                 options: {
                     compress: true
                 },
-                files: {
-                    'build/css/common.css': 'css/common.styl'
-                }
+                files: [
+                    {expand: true, cwd: 'css/', src: ['*.styl'], dest: 'build/css'},
+                ],
             }
         },
+
 
         csso: {
             production: {
