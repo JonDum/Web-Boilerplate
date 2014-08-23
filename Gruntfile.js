@@ -88,15 +88,15 @@ module.exports = function(grunt) {
 
         },
 
-        stylus: {
+	stylus: {
             options: {
                 compress: false
             },
 
             development: {
                 files: [
-                    {expand: true, cwd: 'css/', src: ['*.styl'], dest: 'build/css'},
-                ],
+                    {expand: true, cwd: 'css/', src: ['*.styl'], dest: 'build/css', ext:'.css'},
+                ]
             },
 
             production: {
@@ -104,8 +104,8 @@ module.exports = function(grunt) {
                     compress: true
                 },
                 files: [
-                    {expand: true, cwd: 'css/', src: ['*.styl'], dest: 'build/css'},
-                ],
+                    {expand: true, cwd: 'css/', src: ['*.styl'], dest: 'build/css', ext:'.css'},
+                ]
             }
         },
 
