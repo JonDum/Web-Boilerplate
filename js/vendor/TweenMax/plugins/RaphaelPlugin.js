@@ -1,15 +1,16 @@
 /*!
- * VERSION: beta 0.2.0
- * DATE: 2013-02-27
+ * VERSION: 0.2.2
+ * DATE: 2014-07-17
  * UPDATES AND DOCS AT: http://www.greensock.com
  *
- * @license Copyright (c) 2008-2013, GreenSock. All rights reserved.
+ * @license Copyright (c) 2008-2014, GreenSock. All rights reserved.
  * This work is subject to the terms at http://www.greensock.com/terms_of_use.html or for
  * Club GreenSock members, the software agreement that was issued with your membership.
  * 
  * @author: Jack Doyle, jack@greensock.com
  */
-(window._gsQueue || (window._gsQueue = [])).push( function() {
+var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(global) !== "undefined") ? global : this || window; //helps ensure compatibility with AMD/RequireJS and CommonJS/Node
+(_gsScope._gsQueue || (_gsScope._gsQueue = [])).push( function() {
 
 	"use strict";
 
@@ -110,8 +111,9 @@
 		},
 
 
-		RaphaelPlugin = window._gsDefine.plugin({
+		RaphaelPlugin = _gsScope._gsDefine.plugin({
 			propName: "raphael",
+			version: "0.2.2",
 			API: 2,
 
 			//called when the tween renders for the first time. This is where initial values should be recorded and any setup routines should run.
@@ -218,7 +220,7 @@
 				while (pt) {
 					val = pt.c * v + pt.s;
 					if (pt.r) {
-						val = (val > 0) ? (val + 0.5) >> 0 : (val - 0.5) >> 0;
+						val = Math.round(val);
 					}
 					if (!pt.type) {
 						pt.t[pt.p] = val;
@@ -364,4 +366,4 @@
 		}
 	};
 
-}); if (window._gsDefine) { window._gsQueue.pop()(); }
+}); if (_gsScope._gsDefine) { _gsScope._gsQueue.pop()(); }
