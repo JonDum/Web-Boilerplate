@@ -9,7 +9,7 @@ module.exports = {
         chunkFilename: "[hash]/js/[id].js",
     },
     resolve: {
-        modulesDirectories: ["node_modules", "bower_components", "css", "js"]
+        modulesDirectories: ["node_modules", "bower_components", "css", "js", "js/vendor"]
     },
     module: {
         loaders: [
@@ -23,8 +23,6 @@ module.exports = {
         }
     },
     plugins: [
-        new webpack.ResolverPlugin(
-            new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
-    )
+        new webpack.ResolverPlugin(new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"]))
     ]
 }
