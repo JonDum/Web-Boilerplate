@@ -3,9 +3,7 @@
   "version": "0.1.0",
   "description": "",
   "main": "",
-
-
-  "-comment-": "Use devdeps for build system stuff",
+  "-comment-": "Use deps for client side stuff",
   "devDependencies": {
     "bundle-loader": "^0.5.0",
     "css-loader": "^0.7.1",
@@ -27,11 +25,9 @@
     "webpack": "^1.4.5",
     "webpack-dev-server": "^1.4.6"
   },
-
-
-  "-comment-": "Use deps for client side stuff",
   "dependencies": {
     "fastclick": "^1.0.2",
+    "lodash": "^2.4.1",
     "superagent": "^0.18.2"
   }
 }

@@ -11,6 +11,7 @@
     //these export globals
     require('utils');
     require('polyfills');
+    require('util/lazyload');
 
     //var $ = require('jquery');
 
