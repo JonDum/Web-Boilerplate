@@ -8,7 +8,6 @@ module.exports = function(grunt) {
     require('jit-grunt')(grunt);
 
     var webpack = require('webpack');
-    var webpackConfig = require("./webpack.config.js");
 
     var excludedFiles = ['!node_modules/**', '!build/**', '!Gruntfile.js', '!package.json', '!README','!.git','!.git/**'];
 
@@ -20,27 +19,27 @@ module.exports = function(grunt) {
         },
 
         webpack: {
-			options: webpackConfig,
+			options: require('./webpack.config.js'),
 			development: {
 				devtool: "sourcemap",
 				debug: true,
                 production: false,
-                plugins: webpackConfig.plugins.concat(
+                plugins: [
                     new webpack.DefinePlugin({
                         DEBUG: true,
                         PRODUCTION: false
                     })
-                )
+                ]
 			},
 			production: {
-				plugins: webpackConfig.plugins.concat(
-					new webpack.DefinePlugin({
+                plugins: [
+                    new webpack.DefinePlugin({
                         DEBUG: false,
                         PRODUCTION: true
-					}),
-					new webpack.optimize.DedupePlugin(),
-					new webpack.optimize.UglifyJsPlugin()
-				)
+                    }),
+                    new webpack.optimize.DedupePlugin(),
+                    new webpack.optimize.UglifyJsPlugin()
+                ]
 			},
 		},
 
