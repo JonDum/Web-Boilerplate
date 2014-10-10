@@ -11,7 +11,11 @@
     //these export globals
     require('utils');
     require('polyfills');
+
     require('util/lazyload');
+
+    require('gsap/Tweenlite.js');
+    require('gsap/plugins/ScrollToPlugin.js');
 
     //var $ = require('jquery');
 
