@@ -1,35 +1,12 @@
 
 
 var utils = {}
+
 /**
  *  Returns true if it's an array. Mind blowing, I know.
  * @param value
  */
 
-
-utils.isArray = function(obj) {
-    return (Object.prototype.toString.call(obj) === '[object Array]')
-}
-
-utils.isElement = function(obj)
-{
-    return !!(obj && obj.nodeType == 1);
-}
-
-utils.isFunction = function(obj)
-{
-    return typeof obj === "function";
-}
-
-utils.isEmpty = function(obj)
-{
-    for(var prop in obj) {
-        if(obj.hasOwnProperty(prop))
-            return false;
-    }
-
-    return true;
-}
 
 utils.anyParentHasClass = function(el, name) {
     var searchDepth = 5;
@@ -189,43 +166,6 @@ Object.size = function(obj) {
     }
     return size;
 };
-
-
-utils.debounce = function(func, wait) {
-    // we need to save these in the closure
-    var timeout, args, context, timestamp;
-
-    return function() {
-
-        // save details of latest call
-        context = this;
-        args = [].slice.call(arguments, 0);
-        timestamp = new Date();
-
-        // this is where the magic happens
-        var later = function() {
-
-            // how long ago was the last call
-            var last = (new Date()) - timestamp;
-
-            // if the latest call was less that the wait period ago
-            // then we reset the timeout to wait for the difference
-            if (last < wait) {
-                timeout = setTimeout(later, wait - last);
-
-                // or if not we can null out the timer and run the latest
-            } else {
-                timeout = null;
-                func.apply(context, args);
-            }
-        };
-
-        // we only need to set the timer now if one isn't already running
-        if (!timeout) {
-            timeout = setTimeout(later, wait);
-        }
-    }
-}
 
 
 utils.clearStyles = function(elements, styles) {
