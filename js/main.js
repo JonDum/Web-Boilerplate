@@ -48,15 +48,25 @@
         var id = location.hash.slice(0, location.hash.length - 1)
         var hrefTarget = q(id);
 
+        removeEventListener('scroll', onScroll);
+
         if(hrefTarget)
         {
+
             hashTargetScrollPosition = offset(hrefTarget).top - 50;
 
-            TweenLite.to(siteWrap, 0.4, {scrollTo: hashTargetScrollPosition, onComplete: function() {
-                addEventListener('scroll', onScroll)
-            } })
+            if(e)
+            {
+                e.preventDefault();
+                TweenLite.to(window, 0.8, {scrollTo: hashTargetScrollPosition, onComplete: function() {
+                    addEventListener('scroll', onScroll)
+                } })
+            }
+            else
+              window.scrollTo(0, hashTargetScrollPosition);
         }
     }
+    
 
     function onScroll(e)
     {
