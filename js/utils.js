@@ -2,16 +2,35 @@
 
 var utils = {}
 
-/**
- *  Returns true if it's an array. Mind blowing, I know.
- * @param value
- */
+utils.isArray = function(obj) {		
+    return (Object.prototype.toString.call(obj) === '[object Array]')		
+}		
+		
+utils.isElement = function(obj)		
+{		
+    return !!(obj && obj.nodeType == 1);		
+}		
+		
+utils.isFunction = function(obj)		
+{		
+    return typeof obj === "function";		
+}		
+		
+utils.isEmpty = function(obj)		
+{		
+    for(var prop in obj) {		
+        if(obj.hasOwnProperty(prop))		
+            return false;		
+    }		
+		
+    return true;		
+}		
 
 
 utils.anyParentHasClass = function(el, name) {
     var searchDepth = 5;
 
-    while (!hasClass(el, name) && --searchDepth >= 0)
+    while (!utils.hasClass(el, name) && --searchDepth >= 0)
         el = el.parentNode;
 
     return searchDepth > 0 ? el : null;
@@ -24,12 +43,12 @@ utils.hasClass = function(el, name) {
 }
 
 utils.addClass = function(el, name) {
-    if (name.indexOf(' ') > -1)
+    if(name.indexOf(' ') > -1)
         name.split(' ').forEach(function(val) {
-            addClass(el, val)
+            utils.addClass(el, val)
         });
 
-    if (!hasClass(el, name))
+    if (!utils.hasClass(el, name))
         el.className += (el.className ? ' ' : '') + name;
 }
 
@@ -37,18 +56,18 @@ utils.addClass = function(el, name) {
 utils.removeClass = function(el, name) {
     if (name.indexOf(' ') > -1)
         name.split(' ').forEach(function(val) {
-            removeClass(el, val)
+            utils.removeClass(el, val)
         });
 
-    if (hasClass(el, name))
+    if (utils.hasClass(el, name))
         el.className = el.className.replace(new RegExp('(\\s|^)' + name + '(\\s|$)'), ' ').replace(/^\s+|\s+$/g, '');
 }
 
 utils.toggleClass = function(el, name) {
-    if (hasClass(el, name))
-        removeClass(el, name)
+    if (utils.hasClass(el, name))
+        utils.removeClass(el, name)
     else
-        addClass(el, name);
+        utils.addClass(el, name);
 }
 
 
@@ -63,15 +82,14 @@ utils.q = function(sel, sel2) {
     if(sel instanceof NodeList && sel.length == 1)
         sel = sel[0];
 
-    if(isElement(sel) && sel2.length > 0)
-    {
+    if(utils.isElement(sel) && sel2.length > 0) {
         container = sel;
         query = sel2;
     }
 
     var result = container.querySelectorAll(query);
 
-    if(result.length == 1)
+    if (result.length == 1)
         result = result[0];
 
     return result;
@@ -96,14 +114,6 @@ utils.getPosition = function(element) {
 }
 
 
-utils.elementIndexOf = function(el) {
-
-    var a = childElementsOf(el.parentNode);
-
-    return a.indexOf(el);
-
-}
-
 
 utils.childElementsOf = function(el) {
     var a = Array.prototype.slice.call(el.childNodes)
@@ -115,16 +125,24 @@ utils.childElementsOf = function(el) {
     return a;
 }
 
+utils.elementIndexOf = function(el) {
+
+    var a = utils.childElementsOf(el.parentNode);
+
+    return a.indexOf(el);
+
+}
+
 
 utils.previousSiblingElement = function(el) {
-    var siblings = childElementsOf(el.parentNode);
+    var siblings = utils.childElementsOf(el.parentNode);
 
     return siblings[siblings.indexOf(el) - 1];
 }
 
 
 utils.nextSiblingElement = function(el) {
-    var siblings = childElementsOf(el.parentNode);
+    var siblings = utils.childElementsOf(el.parentNode);
 
     return siblings[siblings.indexOf(el) + 1];
 }
@@ -132,16 +150,14 @@ utils.nextSiblingElement = function(el) {
 
 utils.querySelectorForEach = function(queries, callback) {
 
-    if (!isArray(queries)) queries = [queries];
+    if (!utils.isArray(queries)) queries = [queries];
 
     var elements = [];
 
-    queries.forEach(function(query) {
-        if (typeof query === 'string')
-            elements = elements.concat(Array.prototype.slice.call(document.querySelectorAll(query)));
-    });
+    if(isArray(queries))
+        queries = queries.join(',');
 
-    elements.forEach(function(el) {
+    q(queries).forEach(function(el) {
 
         callback(el, elements);
 
@@ -151,9 +167,7 @@ utils.querySelectorForEach = function(queries, callback) {
 
 
 utils.nodeListForEach = function(nodeList, callback) {
-    nodeList = Array.prototype.slice.call(nodeList);
-
-    nodeList.forEach(callback);
+    Array.prototype.slice.call(nodeList).forEach(callback);
 }
 
 
@@ -169,10 +183,10 @@ Object.size = function(obj) {
 
 
 utils.clearStyles = function(elements, styles) {
-    if (!isArray(elements))
+    if(!utils.isArray(elements))
         elements = [elements];
 
-    if (!isArray(styles))
+    if(!utils.isArray(styles))
         styles = [styles];
 
     elements.forEach(function(el) {
@@ -202,7 +216,7 @@ utils.formEncodeObject = function(obj, alsoEncodeURI) {
 /**
  * This is document-space position. For screen-space position use el.getBoundingClientRect()
  * @param element
-*/
+ */
 utils.offset = function(element) {
     var curleft = curtop = 0;
 
@@ -229,9 +243,7 @@ utils.removeElementFromDom = function(element) {
 
 
 
-//export
-
-module.exports = utils;
+module.exports = utils; 
 
 
 for(var util in utils)
