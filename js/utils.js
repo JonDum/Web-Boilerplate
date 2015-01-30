@@ -89,10 +89,14 @@ utils.q = function(sel, sel2) {
 
     var result = container.querySelectorAll(query);
 
-    if (result.length == 1)
+    if(result.length == 1)
         result = result[0];
+    else
+    if(result.length == 0)
+        return undefined;
 
     return result;
+
 
 
 }
