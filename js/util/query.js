@@ -1,5 +1,7 @@
 
-module.export = function(sel, sel2) {
+var isElement = require('lodash/lang/isElement');
+
+module.exports = function(sel, sel2) {
 
     var container = document;
     var query = sel;
@@ -10,7 +12,7 @@ module.export = function(sel, sel2) {
     if(sel instanceof NodeList && sel.length == 1)
         sel = sel[0];
 
-    if(utils.isElement(sel) && sel2.length > 0) {
+    if(isElement(sel) && sel2.length > 0) {
         container = sel;
         query = sel2;
     }
