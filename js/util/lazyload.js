@@ -1,12 +1,14 @@
 
-var _ = require('lodash');
-
 var elements = [];
 
-querySelectorForEach('img[data-src], [data-bg-url]', function(el) { elements.push(el) });
+var forEach = require('lodash/collection/forEach');
+var throttle = require('lodash/function/throttle');
+var q = require('util/query');
 
 
-var checkImagePositions = _.throttle(function(e) { 
+forEach(q('img[data-src], [data-bg-url]'), elements.push);
+
+var checkImagePositions = throttle(function(e) { 
 
     if(elements.length == 0)
         window.removeEventListener('scroll', checkImagePositions);
@@ -32,8 +34,8 @@ var checkImagePositions = _.throttle(function(e) {
 
 
 checkImagePositions();
-window.addEventListener('scroll', checkImagePositions);
 
+window.addEventListener('scroll', checkImagePositions);
 
 function elementInViewport(el)
 {
@@ -45,4 +47,3 @@ function elementInViewport(el)
        (rect.top - (window.innerHeight/2)) <= (window.innerHeight || document.documentElement.clientHeight) 
     )
 }
-

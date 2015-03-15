@@ -154,5 +154,9 @@ module.exports = function(grunt) {
     // production environment
     grunt.registerTask('production', ['clean', 'preprocess:production', 'rsync:static', 'stylus:production', 'csso', 'webpack:production']);
 
+    //aliases
+    grunt.registerTask('webpack:dev', ['webpack:development']);
+    grunt.registerTask('webpack:prod', ['webpack:production']);
+
 };
 

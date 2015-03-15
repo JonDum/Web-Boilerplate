@@ -9,7 +9,7 @@ module.exports = {
         chunkFilename: "[hash]/js/[id].js",
     },
     resolve: {
-        modulesDirectories: ["node_modules", "bower_components", "css", "js", "js/vendor"]
+        modulesDirectories: ["node_modules", "bower_components", "css", "js"]
     },
     module: {
         loaders: [
