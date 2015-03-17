@@ -16,6 +16,7 @@
     "grunt-rsync": "^0.6.2",
     "grunt-text-replace": "~0.4.0",
     "grunt-webpack": "^1.0.8",
+    "raw-loader": "^0.5.1",
     "jit-grunt": "^0.9.1",
     "style-loader": "^0.8.3",
     "stylus-loader": "^1.0.0",

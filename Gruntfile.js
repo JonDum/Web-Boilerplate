@@ -87,7 +87,7 @@ module.exports = function(grunt) {
 
         },
 
-	stylus: {
+        stylus: {
             options: {
                 compress: false
             },
@@ -129,7 +129,7 @@ module.exports = function(grunt) {
                 tasks: ['stylus:development']
             },
             js: {
-                files: ['js/**/*.js'],
+                files: ['js/**/*.js', 'templates/**/*'],
                 tasks: ['webpack:development']
             },
             static: {
