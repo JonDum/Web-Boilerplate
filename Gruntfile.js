@@ -93,6 +93,9 @@ module.exports = function(grunt) {
             },
 
             development: {
+                options: {
+                    sourcemap: {inline: true}
+                },
                 files: [
                     {expand: true, cwd: 'css/', src: ['*.styl'], dest: 'build/css', ext:'.css'},
                 ]
