@@ -111,6 +111,19 @@ module.exports = function(grunt) {
             }
         },
 
+        imageEmbed: {
+            options: {
+                baseDir: 'build/',
+                deleteAfterEncoding: true
+            },
+            common: {
+                src: [ "build/css/common.css" ],
+                dest: "build/css/common.css",
+                options: {
+                    deleteAfterEncoding : false
+                }
+            }
+        },
 
         csso: {
             production: {
@@ -155,7 +168,7 @@ module.exports = function(grunt) {
     grunt.registerTask('staging', ['preprocess:production', 'rsync:static']);
 
     // production environment
-    grunt.registerTask('production', ['clean', 'preprocess:production', 'rsync:static', 'stylus:production', 'csso', 'webpack:production']);
+    grunt.registerTask('production', ['clean', 'preprocess:production', 'rsync:static', 'stylus:production', 'imageEmbed', 'csso', 'webpack:production']);
 
     //aliases
     grunt.registerTask('webpack:dev', ['webpack:development']);
