@@ -15,3 +15,25 @@ $tablet       = "screen and (min-width: " + $bp-tablet + ")";
 $desktop      = "screen and (min-width: " + $bp-desktop + ")";
 $desktop-wide = "screen and (min-width: " + $bp-desktop-wide + ")";
 
+// utils
+@media $mobile-small
+    .hidden.mobile-small
+        display none
+
+@media $mobile
+    .hidden.mobile
+        display none
+
+@media $tablet
+    .hidden.tablet
+        display none
+
+@media $desktop
+    .hidden.desktop
+        display none
+
+@media $desktop-wide
+    .hidden.desktop-wide
+        display none
+
+
