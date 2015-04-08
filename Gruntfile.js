@@ -24,6 +24,9 @@ module.exports = function(grunt) {
 				devtool: "sourcemap",
 				debug: true,
                 production: false,
+                output: {
+                    pathinfo: true
+                },
                 plugins: [
                     new webpack.DefinePlugin({
                         DEBUG: true,
