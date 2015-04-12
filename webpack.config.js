@@ -5,8 +5,9 @@ module.exports = {
     entry: ['main'],
     output: {
         path: __dirname + '/build/js',
+        publicPath: '/js/',
         filename: 'main.js?[hash]',
-        chunkFilename: '[hash]/js/[id].js',
+        chunkFilename: 'chunks/[name].js?[hash]',
     },
     resolve: {
         root: process.cwd(),
