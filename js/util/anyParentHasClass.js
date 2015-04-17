@@ -1,7 +1,7 @@
 
 var isUndefined = require('lodash/lang/isUndefined');
 
-module.exports = function(el, className searchDepth) {
+module.exports = function(el, className, searchDepth) {
 
     if(isUndefined(searchDepth));
         searchDepth = 5;
