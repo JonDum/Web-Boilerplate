@@ -5,7 +5,9 @@ module.exports = function(grunt) {
     require('time-grunt')(grunt);
 
     //handles plugins
-    require('jit-grunt')(grunt);
+    require('jit-grunt')(grunt, {
+        'webpack-dev-server': 'grunt-webpack'
+    });
 
     var webpack = require('webpack');
 
@@ -21,46 +23,79 @@ module.exports = function(grunt) {
         webpack: {
 			options: require('./webpack.config.js'),
 			development: {
-				devtool: "sourcemap",
-				debug: true,
-                production: false,
-                output: {
-                    pathinfo: true
-                },
                 plugins: [
                     new webpack.DefinePlugin({
                         DEBUG: true,
                         PRODUCTION: false
                     })
-                ]
+                ],
 			},
-			production: {
+            staging: {
                 plugins: [
                     new webpack.DefinePlugin({
                         DEBUG: false,
                         PRODUCTION: true
                     }),
-                    new webpack.optimize.DedupePlugin(),
+                ]
+            },
+			production: {
+                debug: false,
+                production: true,
+                devtool: 'none',
+                output: {
+                    pathinfo: false,
+                },
+                plugins: [
+                    new webpack.DefinePlugin({
+                        DEBUG: false,
+                        PRODUCTION: true
+                    }),
                     new webpack.optimize.UglifyJsPlugin({
                         output: {
-                            comments: false
+                            comments: false,
                         }
                     })
                 ]
 			},
 		},
 
+        'webpack-dev-server': {
+
+            options: {
+				webpack: require('./webpack.config.js'),
+                contentBase: './build',
+                stats: {
+                    hash: true,
+                    colors: true,
+                    timings: true,
+                    chunks: true,
+                    chunkModules: true,
+                    modules: true,
+                    reasons: true,
+                    children: true,
+                }
+			},
+
+            start: {
+				keepAlive: false,
+				webpack: {
+					devtool: 'eval',
+					debug: true
+				}
+			}
+        },
+
         rsync: {
             options: {
-                args: ["-vPc"],
+                args: ['-vPc'],
                 exclude: excludedFiles,
                 recursive: true
             },
 
             static: {
                 options: {
-                    src: "static/",
-                    dest: "build/"
+                    src: 'static/',
+                    dest: 'build/'
                 }
             }
 
@@ -68,7 +103,7 @@ module.exports = function(grunt) {
 
         preprocess: {
 
-            html: {
+            development: {
                 files: [
                     {expand: true, cwd: 'pages/', src: ['**/*.html'], dest: 'build/'},
                 ],
@@ -94,14 +129,26 @@ module.exports = function(grunt) {
 
         },
 
+        cacheBust: {
+            options: {
+                baseDir: './build/',
+                rename: false,
+            },
+            assets: {
+              files: {
+                src: ['build/**/*.html']
+              }
+            }
+        },
+
         stylus: {
             options: {
-                compress: false
+                compress: false,
             },
 
             development: {
                 options: {
-                    sourcemap: {inline: true}
+                    sourcemap: {inline: true},
                 },
                 files: [
                     {expand: true, cwd: 'css/', src: ['*.styl'], dest: 'build/css', ext:'.css'},
@@ -118,19 +165,6 @@ module.exports = function(grunt) {
             }
         },
 
-        imageEmbed: {
-            options: {
-                baseDir: 'build/',
-                deleteAfterEncoding: true
-            },
-            common: {
-                src: [ "build/css/common.css" ],
-                dest: "build/css/common.css",
-                options: {
-                    deleteAfterEncoding : false
-                }
-            }
-        },
 
         csso: {
             production: {
@@ -139,9 +173,24 @@ module.exports = function(grunt) {
             }
         },
 
+        imageEmbed: {
+            options: {
+                baseDir: 'build/',
+                deleteAfterEncoding: true
+            },
+            common: {
+                src: [ 'build/css/common.css' ],
+                dest: 'build/css/common.css',
+                options: {
+                    deleteAfterEncoding : false
+                }
+            }
+        },
+
         watch: {
             options: {
-                livereload: true
+                livereload: true,
+                spawn: true,
             },
             html: {
                 files: ['pages/**/*.html', 'templates/**/*.html'],
@@ -152,8 +201,8 @@ module.exports = function(grunt) {
                 tasks: ['stylus:development']
             },
             js: {
-                files: ['js/**/*.js', 'templates/**/*'],
-                tasks: ['webpack:development']
+                files: ['templates/**/*', 'css/**/*'],
+                tasks: ['cacheBust']
             },
             static: {
                 files: ['static/**/*'],
@@ -162,24 +211,36 @@ module.exports = function(grunt) {
         }
     });
 
+    var r = grunt.registerTask;
 
-    grunt.registerTask('preprocess:development', ['preprocess:html']);
+    r('common:all', ['clean', 'rsync']);
 
-    grunt.registerTask('dev', ['clean', 'preprocess:development', 'rsync:static', 'stylus:development', 'webpack:development']);
+    //dev
+    r('common:d', ['common:all', 'preprocess:development', 'stylus:development', 'webpack:development']);
 
-    grunt.registerTask('debug', ['default', 'watch']);
+    //staging
+    r('common:s', ['common:all', 'preprocess:production', 'stylus:development', 'webpack:staging']);
 
-    grunt.registerTask('default', ['dev']);
+    //production
+    r('common:p', ['common:all', 'preprocess:production', 'stylus:production', 'webpack:production']);
 
-    // Staging is production preprocessing without minifiaction/obfuscation
-    grunt.registerTask('staging', ['preprocess:production', 'rsync:static']);
 
-    // production environment
-    grunt.registerTask('production', ['clean', 'preprocess:production', 'rsync:static', 'stylus:production', 'imageEmbed', 'csso', 'webpack:production']);
+    r('build:development', ['common:d', 'cacheBust']);
+    r('build:staging', ['common:s', 'csso', 'imageEmbed', 'cacheBust']);
+    r('build:production', ['common:p', 'csso', 'imageEmbed', 'cacheBust']);
+    r('build', [process.env.NODE_ENV === 'production' ? 'build:production' : 'build:development']);
+
+    r('serve', ['webpack-dev-server:start', 'watch']);
 
     //aliases
-    grunt.registerTask('webpack:dev', ['webpack:development']);
-    grunt.registerTask('webpack:prod', ['webpack:production']);
+    r('webpack:dev', ['webpack:development']);
+    r('webpack:prod', ['webpack:production']);
+    r('and', []); // ==> `grunt build and serve` neato
+    r('default', ['build']);
 
+    //legacy
+    r('dev', ['build:development'])
+    r('staging', ['build:staging'])
+    r('production', ['build:production'])
 };
 

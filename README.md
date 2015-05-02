@@ -16,9 +16,9 @@ Download and unzip the repository.
 
 `cd` into the project folder and run `npm install` to download the necessary build files.
 
-Then run `grunt` to build a development version and use `grunt watch` to rebuild when files change with `livereload` support. The compiled files will be in `build/`.
+Then run `grunt` or `grunt build` to build a development version.
 
-The directory structure looks like:
+The compiled files will be in `build/` with a directory structure like this:
   
     ▸ build/ <--- resultant build files
 	▾ css/
@@ -27,8 +27,9 @@ The directory structure looks like:
 	  ▸ misc/ <--- utils and Stylus variables
 	  ▸ pages/
 	  ▸ polyfill/
-	  ▸ scaffolding/ <!-- Layout, Grid, etc.
+	  ▸ scaffolding/ <--- Layout, Grid, etc.
 	  ▸ typography/
+        ... <--- whatever else you need
 	    common.styl <--- The main stylesheet.
 	▸ js/
         ...
@@ -37,18 +38,27 @@ The directory structure looks like:
 	▸ pages/ <!--- HTML goes here. Sub folders are supported.
 	▾ static/
 	  ▸ font/
-	  ▾ images/
+	  ▸ images/
 	  ▸ js/    <!--- one-off javascript files only (will not be preprocessed)
 	  ▸ video/
-	▸ templates/ <!-- Put your HTML includes or templates here
+	▸ templates/ <!-- HTML includes and templates here
 	  Gruntfile.js
       webpack.config.js
 	  package.json
 	  README.md
 
+Run `grunt build:production` to build a production version complete with minified and obfuscated code. 
+Run `grunt build:staging` to build with production preprocessors, but without the obfuscation (good for debugging in production mode).
 
-Run `grunt production` to build a production version complete with minified and obfuscated code; run `grunt staging` to build with production preprocessors, but without the obfuscation (good for debugging in production mode).
+Tip: if `NODE_ENV` is set to `production`, `grunt build` will build a production version instead.
 
+##### Developing
+
+Run `grunt serve` to start up webpack-dev-server and grunt-watch at the same time. Changes to the filesystem will rebuild files as needed.
+
+Open [http://localhost:8080/webpack-dev-server](http://localhost:8080/webpack-dev-server)
+to view your app with a handy toolbar showing you the build status or
+[http://localhost:8080/](http://localhost:8080/) to view your app normally
 
 
 ### Goodies
