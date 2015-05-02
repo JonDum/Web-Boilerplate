@@ -194,7 +194,7 @@ module.exports = function(grunt) {
             },
             html: {
                 files: ['pages/**/*.html', 'templates/**/*.html'],
-                tasks: ['preprocess:html']
+                tasks: ['preprocess:development']
             },
             stylus: {
                 files: ['css/**/*.styl'],
