@@ -7,7 +7,7 @@ module.exports = {
         path: __dirname + '/build/js',
         publicPath: '/js/',
         filename: 'main.js',
-        chunkFilename: 'chunks/[name].[hash].js',
+        chunkFilename: 'chunks/[name].[chunkhash].js',
         pathinfo: true,
     },
     resolve: {
