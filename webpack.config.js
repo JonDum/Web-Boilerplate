@@ -15,6 +15,9 @@ module.exports = {
         modulesDirectories: ['node_modules', 'bower_components', 'css', 'js', 'templates'],
         extensions: ['', '.js', '.styl', '.html'],
     },
+    stylus: {
+        import: [__dirname + '/css/includes/*']
+    },
     module: {
         loaders: [
             {test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader'},
