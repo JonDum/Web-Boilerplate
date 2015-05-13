@@ -16,6 +16,7 @@ module.exports = {
         extensions: ['', '.js', '.styl', '.html'],
     },
     stylus: {
+        use: [(require('nib')())],
         import: [__dirname + '/css/includes/*']
     },
     module: {

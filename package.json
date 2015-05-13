@@ -20,17 +20,18 @@
     "grunt-webpack": "^1.0.8",
     "jit-grunt": "^0.9.1",
     "raw-loader": "^0.5.1",
-    "style-loader": "^0.12.1",
-    "stylus-loader": "^1.1.0",
+    "style-loader": "^0.12.2",
+    "stylus-loader": "^1.1.1",
     "superagent": "^1.2.0",
-    "time-grunt": "^1.1.1",
-    "webpack": "^1.8.11",
+    "time-grunt": "^1.2.0",
+    "webpack": "^1.9.5",
     "webpack-dev-server": "^1.8.2"
   },
   "dependencies": {
     "fastclick": "^1.0.6",
     "gsap": "^1.16.1",
     "lodash": "^3.8.0",
+    "nib": "^1.1.0",
     "superagent": "^1.2.0"
   }
 }

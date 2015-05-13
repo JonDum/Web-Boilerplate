@@ -64,6 +64,7 @@ module.exports = function(grunt) {
             options: {
 				webpack: require('./webpack.config.js'),
                 contentBase: './build',
+                historyApiFallback: true,
                 stats: {
                     hash: true,
                     colors: true,
