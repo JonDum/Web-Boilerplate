@@ -1,32 +1,45 @@
 
+
+$size = 24px
+
 input[type="checkbox"], input[type="radio"]
     display none
 
     & + label
         position relative
+        padding-left $size + 5px
+
 
     & + label:before
         content ''
         display inline-block
-        width 14px
-        height 14px
+
+        width $size
+        height $size
+
+
+        position absolute
+        left 0
+        top 50%
+        margin-top -($size/2)
+
         background #fff
         border 1px solid rgba(0, 0, 0, 0.33)
-        vertical-align text-top
-        position relative
-        text-indent 14px
-        margin-right 5px
 
     &:checked
         + label
             &:after
                 display block
                 content ''
-                width 6px
-                height 6px
+
+                width ($size/2)
+                height @width
+
                 position absolute
-                left 4px
-                top 7px
+                left ($size/2/2)
+                top 50%
+                margin-top -@left
+
                 background #333
 
 input[type="radio"]
