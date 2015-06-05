@@ -1,24 +1,24 @@
 
-input[type="checkbox"]
+input[type="checkbox"], input[type="radio"]
     display none
 
-    & ~ label
+    & + label
         position relative
 
-    & ~ label:before
+    & + label:before
         content ''
         display inline-block
-        width 12px
-        height 12px
+        width 14px
+        height 14px
         background #fff
         border 1px solid rgba(0, 0, 0, 0.33)
-        vertical-align middle
+        vertical-align text-top
         position relative
         text-indent 14px
         margin-right 5px
 
     &:checked
-        ~ label
+        + label
             &:after
                 display block
                 content ''
@@ -26,6 +26,9 @@ input[type="checkbox"]
                 height 6px
                 position absolute
                 left 4px
-                top 4px
+                top 7px
                 background #333
 
+input[type="radio"]
+    & + label, & + label:before, & + label:after
+        border-radius 99px
