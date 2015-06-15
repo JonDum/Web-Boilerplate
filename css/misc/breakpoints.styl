@@ -8,12 +8,21 @@ $bp-tablet       = 768px
 $bp-desktop      = 1024px
 $bp-desktop-wide = 1200px
 
+
 // media queries
 $mobile-small = "screen and (max-width: " + $bp-mobile-small + ")";
+
 $mobile       = "screen and (max-width: " + $bp-mobile + ")";
+$mobile-only  = "screen and (max-width: " + $bp-mobile + ") and (min-width: "+$bp-mobile-small+")";
+
 $tablet       = "screen and (min-width: " + $bp-tablet + ")";
+$tablet-only  = "screen and (min-width: " + $bp-tablet + ") and (max-width: "+$bp-desktop+")";
+
 $desktop      = "screen and (min-width: " + $bp-desktop + ")";
+$desktop-only = "screen and (min-width: " + $bp-desktop + ") and (max-width: "+$bp-desktop-wide+")";
+
 $desktop-wide = "screen and (min-width: " + $bp-desktop-wide + ")";
+
 
 // utils
 @media $mobile-small
