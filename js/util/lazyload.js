@@ -1,14 +1,17 @@
 
+var elements = [];
+
 var forEach = require('lodash/collection/forEach');
 var throttle = require('lodash/function/throttle');
 var isUndefined = require('lodash/lang/isUndefined');
+
 var q = require('util/query');
 
 
 var elements = q('img[data-src], [data-bg-url]');
 
-var checkImagePositions = throttle(function(e)
-{
+
+var checkImagePositions = throttle(function(e) { 
 
     if(isUndefined(elements) || elements.length == 0)
     {
@@ -16,8 +19,7 @@ var checkImagePositions = throttle(function(e)
         return;
     }
 
-    for(var i = 0; i < elements.length; i++)
-    {
+    for(var i = 0; i < elements.length; i++) {
 
         var el = elements[i];
 
@@ -26,7 +28,7 @@ var checkImagePositions = throttle(function(e)
             if(el.nodeName.toLowerCase() == 'img')
                 el.src = el.getAttribute('data-src');
             else
-                el.style.backgroundImage = 'url("' + el.getAttribute('data-bg-url') + '")';
+                el.style.backgroundImage = 'url("'+el.getAttribute('data-bg-url')+'")';
 
             elements.splice(i--, 1);
         }
@@ -46,7 +48,8 @@ function elementInViewport(el)
     var rect = el.getBoundingClientRect();
 
     return (
-        rect.left >= 0 &&
-        (rect.top - (window.innerHeight / 2)) <= (window.innerHeight || document.documentElement.clientHeight)
-    );
+
+       rect.left >= 0 && 
+       (rect.top - (window.innerHeight/2)) <= (window.innerHeight || document.documentElement.clientHeight) 
+    )
 }

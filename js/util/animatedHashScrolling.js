@@ -1,6 +1,7 @@
 
 
 require('gsap');
+var q = require('util/query');
 
 var hashTargetScrollPosition;
 
