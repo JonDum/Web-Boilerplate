@@ -36,7 +36,9 @@ module.exports = {
     production: false,
     devtool: "eval",
     devServer: {
+        contentBase: './build',
+        hot: true,
         colors: true,
-        inline: true
+        inline: true,
     }
 }
