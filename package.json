@@ -29,6 +29,7 @@
     "webpack-dev-server": "^1.8.2"
   },
   "dependencies": {
+    "eases": "^1.0.6",
     "fastclick": "^1.0.6",
     "gsap": "^1.16.1",
     "lodash": "^3.8.0",
