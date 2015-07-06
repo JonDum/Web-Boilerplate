@@ -28,6 +28,13 @@ module.exports = {
             {test: /\.html/,  loader: 'ractive'},
             {test: /\.json/,  loader: 'json'},
         ],
+        postLoaders: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/, // do not lint third-party code
+                loader: 'jshint-loader'
+            }
+        ]
     },
     plugins: [
         new webpack.optimize.DedupePlugin()
@@ -37,7 +44,6 @@ module.exports = {
     devtool: "eval",
     devServer: {
         contentBase: './build',
-        hot: true,
         colors: true,
         inline: true,
     }

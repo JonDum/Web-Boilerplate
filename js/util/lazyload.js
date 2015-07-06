@@ -13,7 +13,7 @@ var elements = q('img[data-src], [data-bg-url]');
 
 var checkImagePositions = throttle(function(e) { 
 
-    if(isUndefined(elements) || elements.length == 0)
+    if(isUndefined(elements) || elements.length === 0)
     {
         window.removeEventListener('scroll', checkImagePositions);
         return;
@@ -51,5 +51,5 @@ function elementInViewport(el)
 
        rect.left >= 0 && 
        (rect.top - (window.innerHeight/2)) <= (window.innerHeight || document.documentElement.clientHeight) 
-    )
+    );
 }
