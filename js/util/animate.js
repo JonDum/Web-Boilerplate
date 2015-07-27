@@ -1,9 +1,25 @@
 
-//default ease
+//default ease from ease.js
 var ease = require('eases/quint-in-out');
 
 /**
 * Simple and easy RAF animation function
+*
+* Example:
+*
+*    animate({
+*        duration: 1.8,
+*        step: step,
+*        complete: function() {
+*           //stuff
+*        }
+*    });
+*
+*     function step(progress) {
+*        // `progress` ranges from 0 to 1 —- 0 start, 1 is done
+*     }
+*
+*
 * @param ani Object
 */
 function animate(params) {
