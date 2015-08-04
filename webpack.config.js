@@ -39,6 +39,9 @@ module.exports = {
     plugins: [
         new webpack.optimize.DedupePlugin()
     ],
+    jshint: {
+        asi: true
+    },
     debug: true,
     production: false,
     devtool: "eval",
