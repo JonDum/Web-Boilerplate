@@ -170,21 +170,31 @@ module.exports = function(grunt) {
         csso: {
             production: {
                 report: 'min',
-                files: {'build/css/common.css': ['build/css/common.css']}
+                files: [{
+                    expand: true,
+                    cwd: 'build/css/',
+                    src: ['*.css'],
+                    dest: 'build/css/',
+                }]
             }
         },
+
 
         imageEmbed: {
             options: {
                 baseDir: 'build/',
                 deleteAfterEncoding: true
             },
-            common: {
-                src: [ 'build/css/common.css' ],
-                dest: 'build/css/common.css',
+            css: {
                 options: {
-                    deleteAfterEncoding : false
-                }
+                    deleteAfterEncoding: false
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'build/css/',
+                    src: ['*.css'],
+                    dest: 'build/css/',
+                }]
             }
         },
 
