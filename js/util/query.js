@@ -20,10 +20,10 @@ module.exports = function(sel, sel2) {
     var result = container.querySelectorAll(query);
 
     if(result.length == 1)
-        result = result[0];
+        return result[0];
     else
     if(result.length === 0)
         return undefined;
 
-    return result;
+    return Array.prototype.slice.call(result);
 };
