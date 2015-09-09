@@ -198,28 +198,31 @@ module.exports = function(grunt) {
             }
         },
 
-        watch: {
+                watch: {
             options: {
-                livereload: true,
                 spawn: true,
+            },
+            livereload: {
+                files: ['build/**/*'],
+                options: {
+                    livereload: true,
+                }
             },
             html: {
                 files: ['pages/**/*.html', 'templates/**/*.html'],
-                tasks: ['preprocess:development']
+                tasks: ['preprocess:development'],
             },
             stylus: {
                 files: ['css/**/*.styl'],
-                tasks: ['stylus:development']
-            },
-            js: {
-                files: ['templates/**/*', 'css/**/*'],
-                tasks: ['cacheBust']
+                tasks: ['stylus:development'],
             },
             static: {
                 files: ['static/**/*'],
                 tasks: ['rsync:static']
             }
         }
+
+
     });
 
     var r = grunt.registerTask;
