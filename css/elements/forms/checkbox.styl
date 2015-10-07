@@ -1,47 +1,51 @@
 
 
-$size = 24px
+$size = 2em
 
 input[type="checkbox"], input[type="radio"]
     display none
 
-    & + label
-        position relative
-        padding-left $size + 5px
+label.checkbox
+    position relative
+    user-select none
 
+    display inline-block
 
-    & + label:before
-        content ''
-        display inline-block
+    width $size
+    height $size
 
-        width $size
-        height $size
+    border 1px solid fade-out(#000, 0.8)
 
+    &.dark
+        border 1px solid fade-out(#fff, 0.8)
 
+    .icon
+        display block
+
+        width ($size/2)
+        height ($size/2)
         position absolute
-        left 0
+        left 0.4em
         top 50%
-        margin-top -($size/2)
+        margin-top -0.5em
+        color fade-out(#000, 0.3)
+        opacity 0
+        transform scale(0.3, 0.3)
+        transition all 0.3s ease
 
-        background #fff
-        border 1px solid rgba(0, 0, 0, 0.33)
+        :before
+            content "\e60b"
+            font-family icons
 
-    &:checked
-        + label
-            &:after
-                display block
-                content ''
 
-                width ($size/2)
-                height @width
+    input:checked
+        + .icon
+            transform scale(1,1)
+            opacity 1
 
-                position absolute
-                left ($size/2/2)
-                top 50%
-                margin-top -@left
+        + .dark:after
+                color fade-out(#fff, 0.3)
 
-                background #333
 
-input[type="radio"]
-    & + label, & + label:before, & + label:after
-        border-radius 99px
+label.radio, label.radio .icon
+    border-radius 50%
