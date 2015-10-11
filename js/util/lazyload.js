@@ -4,12 +4,15 @@ var elements = [];
 var forEach = require('lodash/collection/forEach');
 var throttle = require('lodash/function/throttle');
 var isUndefined = require('lodash/lang/isUndefined');
+var isArray = require('lodash/lang/isArray');
 
 var q = require('util/query');
 
 
 var elements = q('img[data-src], [data-bg-url]');
 
+if(!isArray(elements))
+    elements = [elements]
 
 var checkImagePositions = throttle(function(e) { 
 
