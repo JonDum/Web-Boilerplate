@@ -1,5 +1,17 @@
 
 
+/*
+Use like this:
+
+<label class='checkbox'>
+    <input type='checkbox' checked='{{filters.unacked}}'/>
+    <i class='checkmark icon'></i>
+    label
+</label>
+
+*/
+
+
 $size = 2em
 
 input[type="checkbox"], input[type="radio"]
@@ -8,27 +20,25 @@ input[type="checkbox"], input[type="radio"]
 label.checkbox
     position relative
     user-select none
+    line-height 1
 
     display inline-block
 
-    width $size
-    height $size
+    &:before
+        content ''
+        display inline-block
 
-    border 1px solid fade-out(#000, 0.8)
+        vertical-align middle
+        width $size
+        height $size
 
-    &.dark
-        border 1px solid fade-out(#fff, 0.8)
+        border 1px solid currentColor
 
     .icon
-        display block
-
-        width ($size/2)
-        height ($size/2)
+        font-size $size
         position absolute
-        left 0.4em
-        top 50%
-        margin-top -0.5em
-        color fade-out(#000, 0.3)
+        left 0
+        color currentColor
         opacity 0
         transform scale(0.3, 0.3)
         transition all 0.3s ease
