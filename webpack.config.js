@@ -21,6 +21,15 @@ module.exports = {
     },
     module: {
         loaders: [
+            {
+                test: /\.js$/,
+                loader: 'babel',
+                exclude: /(node_modules|bower_components|lib)/,
+                query: {
+                    presets: ['es2015'],
+                    cacheDirectory: true,
+                }
+            },
             {test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader'},
             {test: /\.css$/,  loader: 'style-loader!css-loader'},
             {test: /\.png$/,  loader: 'url-loader?limit=100000&mimetype=image/png'},

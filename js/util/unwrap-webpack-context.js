@@ -10,6 +10,9 @@
  * var context = require.context('stuff/*');
  * var functions = unwrap(context);
  *
+ * @param {Object} context Webpack context via `require.context()`
+ * @param {String} extension The filename extension to filter out. Default: 'js'.
+ * @returns {Object} Object with each key mapped to the exportof the file in the context
  */
 module.exports = function(context, extension) {
 

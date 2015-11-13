@@ -1,11 +1,7 @@
-
-
 // It's ok for polyfills to write to globals here
 
-window.FastClick = require('fastclick');
-
 if (!window.getComputedStyle) {
-    window.getComputedStyle = function(el, pseudo) {
+    window.getComputedStyle = function(el) {
         this.el = el;
         this.getPropertyValue = function(prop) {
             var re = /(\-([a-z]){1})/g;
@@ -22,7 +18,7 @@ if (!window.getComputedStyle) {
 }
 
 
-if(!('contains' in Array.prototype)) {
+if (!('contains' in Array.prototype)) {
     Array.prototype.contains = function(arr, startIndex) {
         return ''.indexOf.call(this, arr, startIndex) !== -1;
     };
@@ -30,7 +26,7 @@ if(!('contains' in Array.prototype)) {
 
 
 (function(win, doc) {
-    if(win.addEventListener) return; //No need to polyfill
+    if (win.addEventListener) return; //No need to polyfill
 
     function docHijack(p) {
         var old = doc[p];
@@ -54,14 +50,14 @@ if(!('contains' in Array.prototype)) {
 
     function addListen(obj, i) {
         /* jshint -W084 */
-        if(i = obj.length)
+        if ((i = obj.length))
             while (i--) obj[i].addEventListener = addEvent;
         else obj.addEventListener = addEvent;
         return obj;
     }
 
     addListen([doc, win]);
-    if('Element' in win) win.Element.prototype.addEventListener = addEvent; //IE8
+    if ('Element' in win) win.Element.prototype.addEventListener = addEvent; //IE8
     else { //IE < 8
         doc.attachEvent('onreadystatechange', function() {
             addListen(doc.all);

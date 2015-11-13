@@ -1,6 +1,6 @@
 (function(window, document) {
 
-    if(DEBUG)
+    if (DEBUG)
         console.log('DEBUG mode is enabled.');
 
     require('polyfills');
@@ -12,21 +12,19 @@
      *  Check the page had loaded and is ready to run javascript stuffs
      *
      */
-    if(document.readyState == 'complete' || document.readyState == 'interactive')
+    if (document.readyState == 'complete' || document.readyState == 'interactive')
         init();
     else
-        document.addEventListener("DOMContentLoaded", init);
+        document.addEventListener('DOMContentLoaded', init);
 
 
-    function init()
-    {
-        FastClick.attach(document.body);
+    function init() {
+
+        require('fastclick').attach(document.body);
 
         require('util/animatedHashScrolling.js');
 
     }
-
-
 
 
 })(window, document);

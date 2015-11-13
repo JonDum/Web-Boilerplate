@@ -4,10 +4,10 @@ module.exports = function(grunt) {
     //timing
     require('time-grunt')(grunt);
 
+    //grunt.loadNpmTasks('grunt-debug-task');
+
     //handles plugins
-    require('jit-grunt')(grunt, {
-        'webpack-dev-server': 'grunt-webpack'
-    });
+    require('jit-grunt')(grunt);
 
     var webpack = require('webpack');
 
@@ -21,15 +21,15 @@ module.exports = function(grunt) {
         },
 
         webpack: {
-			options: require('./webpack.config.js'),
-			development: {
+            options: require('./webpack.config.js'),
+            development: {
                 plugins: [
                     new webpack.DefinePlugin({
                         DEBUG: true,
                         PRODUCTION: false
                     })
                 ],
-			},
+            },
             staging: {
                 plugins: [
                     new webpack.DefinePlugin({
@@ -38,7 +38,7 @@ module.exports = function(grunt) {
                     }),
                 ]
             },
-			production: {
+            production: {
                 debug: false,
                 production: true,
                 devtool: 'none',
@@ -56,34 +56,11 @@ module.exports = function(grunt) {
                         }
                     })
                 ]
-			},
-		},
+            },
+        },
 
-        'webpack-dev-server': {
-
-            options: {
-				webpack: require('./webpack.config.js'),
-                contentBase: './build',
-                historyApiFallback: true,
-                stats: {
-                    hash: true,
-                    colors: true,
-                    timings: true,
-                    chunks: true,
-                    chunkModules: true,
-                    modules: true,
-                    reasons: true,
-                    children: true,
-                }
-			},
-
-            start: {
-				keepAlive: false,
-				webpack: {
-					devtool: 'eval',
-					debug: true
-				}
-			}
+        eslint: {
+            all: ['js/**/*.js', '!js/lib/**/*', '!js/parsers/**/*', '!js/syntax/**/*']
         },
 
         rsync: {
@@ -198,7 +175,7 @@ module.exports = function(grunt) {
             }
         },
 
-                watch: {
+        watch: {
             options: {
                 spawn: true,
             },

@@ -1,13 +1,11 @@
-
-
 var isArray = require('lodash/lang/isArray');
 
-module.exports = clearStyles = function(elements, styles) {
+module.exports = function(elements, styles) {
 
-    if(!isArray(elements))
+    if (!isArray(elements))
         elements = [elements];
 
-    if(!isArray(styles))
+    if (!isArray(styles))
         styles = [styles];
 
     elements.forEach(function(el) {

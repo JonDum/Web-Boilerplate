@@ -1,6 +1,7 @@
 
 
-build
+build/
+dist/
 
 node_modules
 
@@ -33,5 +34,3 @@ thumbs.db
 .Spotlight-V100
 .Trashes
 
-# Why no ./node_modules?
-# https://www.npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
