@@ -1,61 +1,77 @@
 
-
 /*
-Use like this:
+
+Usage:
 
 <label class='checkbox'>
-    <input type='checkbox' checked='{{filters.unacked}}'/>
+    <input type='checkbox' checked=''/>
     <i class='checkmark icon'></i>
-    label
 </label>
+
+
+<label class='radio'>
+    <input type='radio' name='{{currentRoutineType}}' value='on event'> On Event
+    <i class='icon'></i>
+</label>
+
 
 */
 
 
-$size = 2em
+$size = 1.5em
 
 input[type="checkbox"], input[type="radio"]
     display none
 
-label.checkbox
+label.checkbox, label.radio
     position relative
     user-select none
-    line-height 1
 
     display inline-block
+    vertical-align middle
+    line-height 1
 
     &:before
         content ''
         display inline-block
-
         vertical-align middle
+
         width $size
         height $size
 
         border 1px solid currentColor
 
+        .dark &
+            border 1px solid fade-out(#fff, 0.8)
+
     .icon
-        font-size $size
+
+        display none
+
+        width ($size*2/3)
+        height ($size*2/3)
         position absolute
-        left 0
-        color currentColor
-        opacity 0
-        transform scale(0.3, 0.3)
-        transition all 0.3s ease
-
-        :before
-            content "\e60b"
-            font-family icons
-
+        top 0.5em
+        left 0.5em
+        transform translate(-25%, -25%)
 
     input:checked
         + .icon
-            transform scale(1,1)
-            opacity 1
+            display block
 
         + .dark:after
                 color fade-out(#fff, 0.3)
 
 
-label.radio, label.radio .icon
-    border-radius 50%
+label.radio
+
+    &:before
+        border-radius 50%
+
+    input:checked
+
+        + .icon
+            border-radius 50%
+            background currentColor
+
+
