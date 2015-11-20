@@ -31,6 +31,9 @@ label.checkbox, label.radio
     vertical-align middle
     line-height 1
 
+    span
+        vertical-align middle
+
     &:before
         content ''
         display inline-block
@@ -51,15 +54,15 @@ label.checkbox, label.radio
         width ($size*2/3)
         height ($size*2/3)
         position absolute
-        top 0.5em
-        left 0.5em
+        top ($size*2/3/2)
+        left ($size*2/3/2)
         transform translate(-25%, -25%)
 
     input:checked
-        + .icon
+        ~ .icon
             display block
 
-        + .dark:after
+        ~ .dark:after
                 color fade-out(#fff, 0.3)
 
 
@@ -70,7 +73,7 @@ label.radio
 
     input:checked
 
-        + .icon
+        ~ .icon
             border-radius 50%
             background currentColor
 
