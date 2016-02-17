@@ -1,62 +1,71 @@
 
 var webpack = require('webpack');
+var path = require('path');
 
 module.exports = {
+
     entry: ['main'],
+
     output: {
         path: __dirname + '/build/js',
-        publicPath: '/js/',
+        publicPath: 'js/',
         filename: 'main.js',
         chunkFilename: 'chunks/[name].[chunkhash].js',
         pathinfo: true,
     },
+
     resolve: {
         root: process.cwd(),
-        modulesDirectories: ['node_modules', 'bower_components', 'css', 'js', 'templates'],
+        modulesDirectories: ['node_modules', 'css', 'js', 'templates'],
         extensions: ['', '.js', '.styl', '.html'],
     },
+
     stylus: {
         use: [(require('nib')())],
         import: [__dirname + '/css/includes/*']
     },
+
     module: {
         loaders: [
             {
                 test: /\.js$/,
                 loader: 'babel',
-                exclude: /(node_modules|bower_components|lib)/,
+                exclude: /(node_modules|lib|parsers|syntax)/,
                 query: {
-                    presets: ['es2015'],
                     cacheDirectory: true,
+                    presets: ['es2015']
                 }
             },
-            {test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader'},
-            {test: /\.css$/,  loader: 'style-loader!css-loader'},
-            {test: /\.png$/,  loader: 'url-loader?limit=100000&mimetype=image/png'},
-            {test: /\.jpg$/,  loader: 'file-loader'},
+            {test: /\.styl$/, loader: 'style!css!stylus-loader'},
+            {test: /\.css$/,  loader: 'style!css'},
+            {test: /\.png$/,  loader: 'url?limit=100000&mimetype=image/png'},
+            {test: /\.jpg$/,  loader: 'file'},
             {test: /\.html/,  loader: 'ractive'},
             {test: /\.json/,  loader: 'json'},
-        ],
-        postLoaders: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/, // do not lint third-party code
-                loader: 'jshint-loader'
-            }
+            {test: /\.txt/,   loader: 'raw'},
         ]
     },
+
     plugins: [
         new webpack.optimize.DedupePlugin()
     ],
-    jshint: {
-        asi: true
+
+    eslint: {
+        configFile: '.eslintrc'
     },
+
     debug: true,
     production: false,
-    devtool: "eval",
+
+    devtool: "cheap-source-map",
+
     devServer: {
         contentBase: './build',
         colors: true,
         inline: true,
-    }
+    },
+
+    resolveLoader: {                                                                                
+        root: path.join(__dirname, 'node_modules')                                                  
+    },
 }
