@@ -1,3 +1,4 @@
+
 //default ease from ease.js
 var ease = require('eases/quint-in-out');
 
@@ -19,33 +20,43 @@ var ease = require('eases/quint-in-out');
  *     }
  *
  *
- * @param {Object} params Animation paramaters. `duration`, `step` function, `complete` function
- * @returns {undefined}
+ * @param ani Object
  */
 function animate(params) {
 
-    var duration = 1000 * params.duration;
-    var end = +new Date() + duration;
+    var duration = typeof params.duration == 'undefined' ? 0.3 : params.duration;
+        duration *= 1000;
+        end = +new Date() + duration;
 
     var step = function() {
 
-        var current = +new Date();
-        var remaining = end - current;
+        var current = +new Date(),
+            remaining = end - current;
+
+        var rate = clamp(1 - remaining / duration, 0, 1);
+        rate = params.ease ? params.ease(rate) : ease(rate);
+
+        if (params.step)
+            params.step(rate);
 
         if (remaining <= 0) {
             if (params.complete)
-                requestAnimationFrame(params.complete);
-            return;
-        } else {
-            var rate = 1 - remaining / duration;
-            rate = params.ease ? params.ease(rate) : ease(rate);
-            params.step(rate);
+                return requestAnimationFrame(params.complete);
         }
 
         requestAnimationFrame(step);
     };
 
-    step();
+    if(duration === 0)
+        step();
+    else
+        requestAnimationFrame(step);
+
 }
+
+function clamp(n, min, max) {
+  return Math.min(Math.max(n, min), max);
+}
+
 
 module.exports = animate;
