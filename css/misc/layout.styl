@@ -1,31 +1,49 @@
+
 /*
     This helper function simplifies some of the flexbox
     terminology. There are some layouts too advanced for this,
     but in the majority of times this saves a lot of typing.
-
+    
     It's written with left, center, right always referring to
     the horizontal axis, and top, middle, bottom always referring
-    to the vertical axis. 'reverse' is not supported because it
-    would make the helper way too complicated and hurt your brain.
+    to the vertical axis. 
+    
+    --IMPORTANT--
+
+    You need to add `apply_layout_cache()` to the end of your main stylus file.
+
+    Example:
+
+    main.styl:
+    ```
+    @import nib
+    @import layout
+    @import stuff
+    @import modules
+
+    apply_layout_cache()
+    ```
+
 
     Examples
 
     // align items horizontally, top left
-    .foo
+    #thing
         layout horizontal top left
 
     // align items vertically on the right edge, vertically centered (middle)
-    .foo
-        layout vertical right middle
+    .things
+        layout vertical right middle 
 
     // align items horizontally on the bottom-left edge
-    .foo
+    #foo
         layout horizontal bottom left
-
-    .foo
+     
+    #bar
         layout vertical nowrap bottom center
 
 
+    Note: 
     'reverse' is not supported because it would make the function overly-complex
     and probably not be what you're expecting. It's also rare to have a need for
     RTL layouts, so I excluded support that. If needed, drop-back down to
@@ -33,28 +51,8 @@
 
 */
 
-fit()
-    position absolute
-    top 0
-    left 0
-    right 0
-    bottom 0
-
-fit-fixed()
-    position fixed
-    top 0
-    left 0
-    right 0
-    bottom 0
-
-
-layout()
-   a = arguments
-
-   if 'inline' in a
-       display inline-flex
-   else
-       display flex
+_layout()
+   a = split(' ', arguments)
 
    if 'wrap-reverse' in a
        flex-wrap wrap-reverse
@@ -134,11 +132,46 @@ layout()
            justify-content stretch
 
 
+$layout_cache = {}
 
-fit()
-    position absolute
-    top 0
-    left 0
-    right 0
-    bottom 0
+layout()
+    a = join(' ',arguments)
+    unless $layout_cache[a]
+        $layout_cache[a] = ()
+    push($layout_cache[a], selector())
 
+apply_layout_cache()
+    common = ''
+    for $layout, $selectors in $layout_cache
+        sels = join(',', $selectors)
+        common += sels + ', '
+        {sels}
+            _layout $layout
+    {common}
+        display flex
+
+/**
+ * Attributes for common layouts to save kb
+ * TODO use partial selectors to save even more space?
+ */
+
+[layout-horizontal]
+    layout horizontal
+
+[layout-vertical]
+    layout vertical
+
+[layout-horizontal-middle] // center align on x, middle align y
+    layout horizontal middle
+
+[layout-horizontal-right] // right align x
+    layout horizontal right
+
+[layout-horizontal-right-middle] // right align x, middle align-y
+    layout horizontal right middle
+
+[layout-vertical-middle]
+    layout vertical middle
+
+[layout-vertical-middle-center]
+    layout vertical middle center
