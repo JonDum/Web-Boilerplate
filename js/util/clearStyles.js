@@ -1,4 +1,4 @@
-var isArray = require('lodash/lang/isArray');
+var isArray = require('lodash/isArray');
 
 module.exports = function(elements, styles) {
 

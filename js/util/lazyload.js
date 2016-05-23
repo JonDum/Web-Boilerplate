@@ -1,7 +1,7 @@
 
-var throttle = require('lodash/function/throttle');
-var isUndefined = require('lodash/lang/isUndefined');
-var isArray = require('lodash/lang/isArray');
+var throttle = require('lodash/throttle');
+var isUndefined = require('lodash/isUndefined');
+var isArray = require('lodash/isArray');
 
 var q = require('util/query');
 

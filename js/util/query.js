@@ -1,4 +1,4 @@
-var isElement = require('lodash/lang/isElement');
+var isElement = require('lodash/isElement');
 
 module.exports = function(sel, sel2) {
 

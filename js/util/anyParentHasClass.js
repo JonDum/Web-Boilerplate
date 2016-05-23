@@ -1,4 +1,4 @@
-var isUndefined = require('lodash/lang/isUndefined');
+var isUndefined = require('lodash/isUndefined');
 
 module.exports = function(el, className, searchDepth) {
 
