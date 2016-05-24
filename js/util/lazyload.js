@@ -7,12 +7,12 @@ var q = require('util/query');
 
 var elements = q('img[data-src], [data-bg-url]');
 
-if (!isArray(elements))
+if (elements && !isArray(elements))
     elements = [elements]
 
 var checkImagePositions = throttle(function() {
 
-    if (isUndefined(elements) || elements.length === 0) {
+    if (!elements || elements.length === 0) {
         window.removeEventListener('scroll', checkImagePositions);
         return;
     }
