@@ -22,7 +22,7 @@ module.exports = function(sel, sel2) {
         return result[0];
     else
     if (result.length === 0)
-        return undefined;
+        return null;
 
     return Array.prototype.slice.call(result);
 };
