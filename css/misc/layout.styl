@@ -3,11 +3,11 @@
     This helper function simplifies some of the flexbox
     terminology. There are some layouts too advanced for this,
     but in the majority of times this saves a lot of typing.
-    
+
     It's written with left, center, right always referring to
     the horizontal axis, and top, middle, bottom always referring
-    to the vertical axis. 
-    
+    to the vertical axis.
+
     --IMPORTANT--
 
     You need to add `apply_layout_cache()` to the end of your main stylus file.
@@ -33,17 +33,17 @@
 
     // align items vertically on the right edge, vertically centered (middle)
     .things
-        layout vertical right middle 
+        layout vertical right middle
 
     // align items horizontally on the bottom-left edge
     #foo
         layout horizontal bottom left
-     
+
     #bar
         layout vertical nowrap bottom center
 
 
-    Note: 
+    Note:
     'reverse' is not supported because it would make the function overly-complex
     and probably not be what you're expecting. It's also rare to have a need for
     RTL layouts, so I excluded support that. If needed, drop-back down to
@@ -56,9 +56,8 @@ _layout()
 
    if 'wrap-reverse' in a
        flex-wrap wrap-reverse
-   if 'nowrap' in a
-       flex-wrap nowrap
-   else
+
+   unless 'nowrap' in a
        flex-wrap wrap
 
    if 'horizontal' in a
