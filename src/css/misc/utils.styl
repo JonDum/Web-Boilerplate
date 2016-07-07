@@ -1,100 +1,100 @@
 
-//  General Stuff
+//	General Stuff
 
 .fr
-    float right
+	float right
 
 
 .r
-    position absolute
-    right 0
-    top 0
+	position absolute
+	right 0
+	top 0
 
 .fl
-    float left
+	float left
 
 .l
-    position absolute
-    left 0
-    top 0
+	position absolute
+	left 0
+	top 0
 
 .cf
   *zoom 1
   &:before, &:after
-    content " "
-    display table
-    line-height 0
+	content " "
+	display table
+	line-height 0
   &:after
-    clear both
+	clear both
 
 .o-hid
-    overflow hidden
+	overflow hidden
 
 .tal
-    text-align left !important
+	text-align left !important
 
 .tac
-    text-align center !important
-    &.c > *
-        text-align center
+	text-align center !important
+	&.c > *
+		text-align center
 
 .tar
-    text-align right  !important
+	text-align right  !important
 
 .vam
-    vertical-align middle
+	vertical-align middle
 
 .p-rel
-    position relative
+	position relative
 
 .d-i
-    display inline
+	display inline
 
 .d-ib
-    display inline-block
+	display inline-block
 
 .d-b
-    display block
+	display block
 
 .d-n
-    display none
+	display none
 
 .nowrap
-    white-space nowrap
+	white-space nowrap
 
 .faded
-    opacity 0 !important
+	opacity 0 !important
 
 // image styles
 
 img.responsive // borrowing from bootstrap 3
-    display block
-    height auto
-    max-width 100%
-    margin-left auto
-    margin-right auto
+	display block
+	height auto
+	max-width 100%
+	margin-left auto
+	margin-right auto
 
 video.responsive
-    display block
-    width 100%
-    height auto
+	display block
+	width 100%
+	height auto
 
 img.bordered // add a border to images
-    border 3px solid transparent
-    box-shadow 0 1px 3px rgba(0,0,0,0.2)
+	border 3px solid transparent
+	box-shadow 0 1px 3px rgba(0,0,0,0.2)
 
 img.tac
-    display block
-    margin-left auto
-    margin-right auto
+	display block
+	margin-left auto
+	margin-right auto
 
 //margins with text
 p, ul, ol, dl
-    + img
-        margin-top 1.6em * 1.6
+	+ img
+		margin-top 1.6em * 1.6
 img +
-    p, ul, ol, dl
-        margin-top 1.6em
+	p, ul, ol, dl
+		margin-top 1.6em
 
 
 

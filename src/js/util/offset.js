@@ -7,23 +7,23 @@
  */
 module.exports = function(element) {
 
-    var curleft = 0;
-    var curtop = 0;
+	var curleft = 0;
+	var curtop = 0;
 
-    if (element.offsetParent) {
+	if (element.offsetParent) {
 
-        /* jshint -W084 */
-        do {
+		/* jshint -W084 */
+		do {
 
-            curleft += element.offsetLeft;
-            curtop += element.offsetTop;
+			curleft += element.offsetLeft;
+			curtop += element.offsetTop;
 
-        } while ((element = element.offsetParent));
+		} while ((element = element.offsetParent));
 
-        return {
-            top: curtop,
-            left: curleft,
-        };
-    }
+		return {
+			top: curtop,
+			left: curleft,
+		};
+	}
 
 };

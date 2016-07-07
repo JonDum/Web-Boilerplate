@@ -1,10 +1,10 @@
 
 module.exports = function(obj, alsoEncodeURI) {
-    var encoded = '';
+	var encoded = '';
 
-    for (var key in obj)
-        encoded += '&' + key + '=' + obj[key];
+	for (var key in obj)
+		encoded += '&' + key + '=' + obj[key];
 
-    encoded = encoded.slice(1);
-    return alsoEncodeURI ? encodeURIComponent(encoded) : encoded;
+	encoded = encoded.slice(1);
+	return alsoEncodeURI ? encodeURIComponent(encoded) : encoded;
 }

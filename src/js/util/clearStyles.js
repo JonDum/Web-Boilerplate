@@ -2,20 +2,20 @@ var isArray = require('lodash/isArray');
 
 module.exports = function(elements, styles) {
 
-    if (!isArray(elements))
-        elements = [elements];
+	if (!isArray(elements))
+		elements = [elements];
 
-    if (!isArray(styles))
-        styles = [styles];
+	if (!isArray(styles))
+		styles = [styles];
 
-    elements.forEach(function(el) {
+	elements.forEach(function(el) {
 
-        if (!el)
-            return;
+		if (!el)
+			return;
 
-        for (var i = 0; i < styles.length; i++)
-            el.style[styles[i]] = '';
+		for (var i = 0; i < styles.length; i++)
+			el.style[styles[i]] = '';
 
-    });
+	});
 
 }

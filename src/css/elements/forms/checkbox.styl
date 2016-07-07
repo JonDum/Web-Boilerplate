@@ -4,14 +4,14 @@
 Usage:
 
 <label class='checkbox'>
-    <input type='checkbox' checked=''/>
-    <i class='checkmark icon'></i>
+	<input type='checkbox' checked=''/>
+	<i class='checkmark icon'></i>
 </label>
 
 
 <label class='radio'>
-    <input type='radio' name='{{currentRoutineType}}' value='on event'> On Event
-    <i class='icon'></i>
+	<input type='radio' name='{{currentRoutineType}}' value='on event'> On Event
+	<i class='icon'></i>
 </label>
 
 
@@ -21,60 +21,60 @@ Usage:
 $size = 1.5em
 
 input[type="checkbox"], input[type="radio"]
-    display none
+	display none
 
 label.checkbox, label.radio
-    position relative
-    user-select none
+	position relative
+	user-select none
 
-    display inline-block
-    vertical-align middle
-    line-height 1
+	display inline-block
+	vertical-align middle
+	line-height 1
 
-    span
-        vertical-align middle
+	span
+		vertical-align middle
 
-    &:before
-        content ''
-        display inline-block
-        vertical-align middle
+	&:before
+		content ''
+		display inline-block
+		vertical-align middle
 
-        width $size
-        height $size
+		width $size
+		height $size
 
-        border 1px solid currentColor
+		border 1px solid currentColor
 
-        .dark &
-            border 1px solid fade-out(#fff, 0.8)
+		.dark &
+			border 1px solid fade-out(#fff, 0.8)
 
-    .icon
+	.icon
 
-        display none
+		display none
 
-        width ($size*2/3)
-        height ($size*2/3)
-        position absolute
-        top ($size*2/3/2)
-        left ($size*2/3/2)
-        transform translate(-25%, -25%)
+		width ($size*2/3)
+		height ($size*2/3)
+		position absolute
+		top ($size*2/3/2)
+		left ($size*2/3/2)
+		transform translate(-25%, -25%)
 
-    input:checked
-        ~ .icon
-            display block
+	input:checked
+		~ .icon
+			display block
 
-        ~ .dark:after
-                color fade-out(#fff, 0.3)
+		~ .dark:after
+				color fade-out(#fff, 0.3)
 
 
 label.radio
 
-    &:before
-        border-radius 50%
+	&:before
+		border-radius 50%
 
-    input:checked
+	input:checked
 
-        ~ .icon
-            border-radius 50%
-            background currentColor
+		~ .icon
+			border-radius 50%
+			background currentColor
 
 

@@ -1,32 +1,32 @@
 // base styles
 
 html, body
-    overflow-x hidden // temporary
-    background #ebedf1
+	overflow-x hidden // temporary
+	background #ebedf1
 
 *, *:after, *:before
-    box-sizing border-box
+	box-sizing border-box
 
 $container-padding = 0.2 // 20% -> 10% each side
 
 .container
-    margin 0 auto
-    transition width 0.4s ease
+	margin 0 auto
+	transition width 0.4s ease
 
-    @media screen and (max-width: ($bp-mobile))
-        width 80%
+	@media screen and (max-width: ($bp-mobile))
+		width 80%
 
-    @media screen and (min-width: ($bp-tablet))
-        width ($bp-tablet * (1 - $container-padding))
-    @media screen and (min-width: ($bp-tablet * (1+$container-padding)))
-        width $bp-tablet
+	@media screen and (min-width: ($bp-tablet))
+		width ($bp-tablet * (1 - $container-padding))
+	@media screen and (min-width: ($bp-tablet * (1+$container-padding)))
+		width $bp-tablet
 
-    @media screen and (min-width: ($bp-desktop))
-        width ($bp-desktop * (1 - $container-padding))
-    @media screen and (min-width: ($bp-desktop * (1+$container-padding)))
-        width $bp-desktop
+	@media screen and (min-width: ($bp-desktop))
+		width ($bp-desktop * (1 - $container-padding))
+	@media screen and (min-width: ($bp-desktop * (1+$container-padding)))
+		width $bp-desktop
 
-    @media screen and (min-width: ($bp-desktop-wide))
-        width ($bp-desktop-wide * (1 - $container-padding))
-    @media screen and (min-width: ($bp-desktop-wide * (1+$container-padding)))
-        width $bp-desktop-wide
+	@media screen and (min-width: ($bp-desktop-wide))
+		width ($bp-desktop-wide * (1 - $container-padding))
+	@media screen and (min-width: ($bp-desktop-wide * (1+$container-padding)))
+		width $bp-desktop-wide

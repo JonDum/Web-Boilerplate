@@ -1,4 +1,4 @@
 
 module.exports = function(input) {
-    return input.replace(/./gi, '▒');
+	return input.replace(/./gi, '▒');
 }

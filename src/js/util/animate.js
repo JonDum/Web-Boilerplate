@@ -7,50 +7,50 @@ var ease = require('eases/quint-in-out');
  *
  * Example:
  *
- *    animate({
- *        duration: 1.8,
- *        step: step,
- *        complete: function() {
- *           //stuff
- *        }
- *    });
+ *	  animate({
+ *		  duration: 1.8,
+ *		  step: step,
+ *		  complete: function() {
+ *			 //stuff
+ *		  }
+ *	  });
  *
- *     function step(progress) {
- *        // `progress` ranges from 0 to 1 —- 0 start, 1 is done
- *     }
+ *	   function step(progress) {
+ *		  // `progress` ranges from 0 to 1 —- 0 start, 1 is done
+ *	   }
  *
  *
  * @param ani Object
  */
 function animate(params) {
 
-    var duration = typeof params.duration == 'undefined' ? 0.3 : params.duration;
-        duration *= 1000;
-        end = +new Date() + duration;
+	var duration = typeof params.duration == 'undefined' ? 0.3 : params.duration;
+		duration *= 1000;
+		end = +new Date() + duration;
 
-    var step = function() {
+	var step = function() {
 
-        var current = +new Date(),
-            remaining = end - current;
+		var current = +new Date(),
+			remaining = end - current;
 
-        var rate = clamp(1 - remaining / duration, 0, 1);
-        rate = params.ease ? params.ease(rate) : ease(rate);
+		var rate = clamp(1 - remaining / duration, 0, 1);
+		rate = params.ease ? params.ease(rate) : ease(rate);
 
-        if (params.step)
-            params.step(rate);
+		if (params.step)
+			params.step(rate);
 
-        if (remaining <= 0) {
-            if (params.complete)
-                return requestAnimationFrame(params.complete);
-        }
+		if (remaining <= 0) {
+			if (params.complete)
+				return requestAnimationFrame(params.complete);
+		}
 
-        requestAnimationFrame(step);
-    };
+		requestAnimationFrame(step);
+	};
 
-    if(duration === 0)
-        step();
-    else
-        requestAnimationFrame(step);
+	if(duration === 0)
+		step();
+	else
+		requestAnimationFrame(step);
 
 }
 

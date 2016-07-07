@@ -16,20 +16,20 @@
  */
 module.exports = function(context, extension) {
 
-    extension = extension || 'js';
+	extension = extension || 'js';
 
-    var ret = {};
-    var regex = new RegExp('\\.'+extension+'$');
+	var ret = {};
+	var regex = new RegExp('\\.'+extension+'$');
 
-    /* jshint -W033 */
-    context.keys()
-    .filter(function(s)  { 
-        return !regex.test(s);
-    })
-    .forEach(function(k) {
-        ret[k.replace('./', '')] = context(k);
-    });
+	/* jshint -W033 */
+	context.keys()
+	.filter(function(s)	 { 
+		return !regex.test(s);
+	})
+	.forEach(function(k) {
+		ret[k.replace('./', '')] = context(k);
+	});
 
-    return ret;
+	return ret;
 
 };

@@ -9,69 +9,69 @@ var startPosition;
 
 
 function onHashChange(e) {
-    if (!location.hash.length)
-        return;
+	if (!location.hash.length)
+		return;
 
-    var id = location.hash.slice(0, location.hash.length - 1);
-    var hrefTarget = q(id);
+	var id = location.hash.slice(0, location.hash.length - 1);
+	var hrefTarget = q(id);
 
-    removeEventListener('scroll', onScroll);
+	removeEventListener('scroll', onScroll);
 
-    if (hrefTarget) {
+	if (hrefTarget) {
 
-        hashTargetScrollPosition = offset(hrefTarget).top - 50;
-        startPosition = getScrollTop();
+		hashTargetScrollPosition = offset(hrefTarget).top - 50;
+		startPosition = getScrollTop();
 
-        if (DEBUG)
-            console.log('hashTargetScrollPosition: ' + hashTargetScrollPosition);
+		if (DEBUG)
+			console.log('hashTargetScrollPosition: ' + hashTargetScrollPosition);
 
-        if (e) {
-            e.preventDefault();
-            animate({
-                duration: 1.8,
-                step: step,
-                complete: function() {
-                    console.log('scroll');
-                    addEventListener('scroll', onScroll);
-                },
-            });
-        } else
-            window.scrollTo(0, hashTargetScrollPosition);
-    }
+		if (e) {
+			e.preventDefault();
+			animate({
+				duration: 1.8,
+				step: step,
+				complete: function() {
+					console.log('scroll');
+					addEventListener('scroll', onScroll);
+				},
+			});
+		} else
+			window.scrollTo(0, hashTargetScrollPosition);
+	}
 }
 
 function step(p) {
 
-    var y = getScrollTop();
-    y = startPosition + (hashTargetScrollPosition - startPosition) * p;
-    w.scrollTo(0, y);
+	var y = getScrollTop();
+	y = startPosition + (hashTargetScrollPosition - startPosition) * p;
+	w.scrollTo(0, y);
 
 }
 
 
 function onScroll() {
-    var delta = hashTargetScrollPosition - scrollY;
-    if (Math.abs(delta) > 50) {
-        if ('pushState' in history)
-            history.pushState('', d.title, location.pathname + location.search); //Clear the hash
-        else
-            location.hash.replace(/#.+?/, '');
+	var delta = hashTargetScrollPosition - scrollY;
+	if (Math.abs(delta) > 50) {
+		if ('pushState' in history)
+			history.pushState('', d.title, location.pathname + location.search); //Clear the hash
+		else
+			location.hash.replace(/#.+?/, '');
 
-        removeEventListener('scroll', onScroll);
-    }
+		removeEventListener('scroll', onScroll);
+	}
 
 }
 
 function getScrollTop() {
-    if (typeof pageYOffset != 'undefined') {
-        //most browsers except IE before #9
-        return pageYOffset;
-    } else {
-        var B = d.body; //IE 'quirks'
-        var D = d.documentElement; //IE with doctype
-        D = (D.clientHeight) ? D : B;
-        return D.scrollTop;
-    }
+	if (typeof pageYOffset != 'undefined') {
+		//most browsers except IE before #9
+		return pageYOffset;
+	} else {
+		var B = d.body; //IE 'quirks'
+		var D = d.documentElement; //IE with doctype
+		D = (D.clientHeight) ? D : B;
+		return D.scrollTop;
+	}
 }
 
 onHashChange();

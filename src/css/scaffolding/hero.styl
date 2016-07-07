@@ -1,73 +1,73 @@
 
 .hero
-    width 100%
-    text-align center
-    position relative
-    padding 12em 0
-    transition font-size 0.4s ease
+	width 100%
+	text-align center
+	position relative
+	padding 12em 0
+	transition font-size 0.4s ease
 
-    &.narrow
-        padding-top 9em
-        padding-bottom 9em
-
-
-    // text
-    h1
-        margin 0
-        font-size 4em
-
-    p
-        margin 0.6em 0 0
-        color #000
+	&.narrow
+		padding-top 9em
+		padding-bottom 9em
 
 
-    .cta
-        margin-top 3em
-        @media $mobile
-            text-align center
-        .button
-            margin-right 0.6em
-            margin-top 0.5em
-            margin-bottom 0.5em
-            // @media $mobile
-            //     margin-right 0
+	// text
+	h1
+		margin 0
+		font-size 4em
 
-        a:not(.button)
-            color #fff
-            font-size 1.3em
-            white-space nowrap
-            @media $mobile
-                font-size 1.6em
-                margin-top 1em
-                display inline-block
+	p
+		margin 0.6em 0 0
+		color #000
 
 
-    // use the overlay class to apply another layer to make text readable on photo backgrounds
-    &.overlay
-        position relative
-        &:before
-            background fade-out(#fff, 10%)
-            content ''
-            position absolute
-            top 0
-            left 0
-            right 0
-            bottom 0
-            z-index 2
-        & > *
-            position relative
-            z-index 5
+	.cta
+		margin-top 3em
+		@media $mobile
+			text-align center
+		.button
+			margin-right 0.6em
+			margin-top 0.5em
+			margin-bottom 0.5em
+			// @media $mobile
+			//	   margin-right 0
 
-        &.dark
-            &:before
-                background fade-out($darkBGColor, 0.1)
-        &.light
-            &:before
-                background fade-out(#fff, 0.1)
+		a:not(.button)
+			color #fff
+			font-size 1.3em
+			white-space nowrap
+			@media $mobile
+				font-size 1.6em
+				margin-top 1em
+				display inline-block
 
-    // .dark on its own simply makes text white
-    &.dark
-        h1, h2, p
-            opacity 1
-            color white
+
+	// use the overlay class to apply another layer to make text readable on photo backgrounds
+	&.overlay
+		position relative
+		&:before
+			background fade-out(#fff, 10%)
+			content ''
+			position absolute
+			top 0
+			left 0
+			right 0
+			bottom 0
+			z-index 2
+		& > *
+			position relative
+			z-index 5
+
+		&.dark
+			&:before
+				background fade-out($darkBGColor, 0.1)
+		&.light
+			&:before
+				background fade-out(#fff, 0.1)
+
+	// .dark on its own simply makes text white
+	&.dark
+		h1, h2, p
+			opacity 1
+			color white
 
