@@ -60,7 +60,7 @@ module.exports = function(grunt) {
         },
 
         eslint: {
-            all: ['js/**/*.js', '!js/lib/**/*', '!js/parsers/**/*', '!js/syntax/**/*']
+            all: ['src/js/**/*.js', '!src/js/lib/**/*']
         },
 
         rsync: {
@@ -72,7 +72,7 @@ module.exports = function(grunt) {
 
             static: {
                 options: {
-                    src: 'static/',
+                    src: 'src/static/',
                     dest: 'build/'
                 }
             }
@@ -83,7 +83,7 @@ module.exports = function(grunt) {
 
             development: {
                 files: [
-                    {expand: true, cwd: 'pages/', src: ['**/*.html'], dest: 'build/'},
+                    {expand: true, cwd: 'src/pages/', src: ['**/*.html'], dest: 'build/'},
                 ],
                 options: {
                     context : {
@@ -95,7 +95,7 @@ module.exports = function(grunt) {
 
             production: {
                 files: [
-                    {expand: true, cwd: 'pages/', src: ['**/*.html'], dest: 'build/'},
+                    {expand: true, cwd: 'src/pages/', src: ['**/*.html'], dest: 'build/'},
                 ],
                 options: {
                     context : {
@@ -109,8 +109,9 @@ module.exports = function(grunt) {
 
         cacheBust: {
             options: {
-                baseDir: './build/',
+                baseDir: 'build/',
                 rename: false,
+                assets: ['build']
             },
             assets: {
               files: {
@@ -129,7 +130,7 @@ module.exports = function(grunt) {
                     sourcemap: {inline: true},
                 },
                 files: [
-                    {expand: true, cwd: 'css/', src: ['*.styl'], dest: 'build/css', ext:'.css'},
+                    {expand: true, cwd: 'src/css/', src: ['*.styl'], dest: 'build/css', ext:'.css'},
                 ]
             },
 
@@ -138,7 +139,7 @@ module.exports = function(grunt) {
                     compress: true
                 },
                 files: [
-                    {expand: true, cwd: 'css/', src: ['*.styl'], dest: 'build/css', ext:'.css'},
+                    {expand: true, cwd: 'src/css/', src: ['*.styl'], dest: 'build/css', ext:'.css'},
                 ]
             }
         },
@@ -186,15 +187,15 @@ module.exports = function(grunt) {
                 }
             },
             html: {
-                files: ['pages/**/*.html', 'templates/**/*.html'],
+                files: ['src/pages/**/*.html', 'templates/**/*.html'],
                 tasks: ['preprocess:development'],
             },
             stylus: {
-                files: ['css/**/*.styl'],
+                files: ['src/css/**/*.styl'],
                 tasks: ['stylus:development'],
             },
             static: {
-                files: ['static/**/*'],
+                files: ['src/static/**/*'],
                 tasks: ['rsync:static']
             }
         }

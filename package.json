@@ -5,7 +5,7 @@
   "main": "",
   "-comment-": "Use deps for client side stuff",
   "devDependencies": {
-    "babel-core": "^6.9.0",
+    "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
     "bundle-loader": "^0.5.4",
@@ -16,7 +16,7 @@
     "grunt-contrib-stylus": "^1.2.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-csso": "^1.0.0",
-    "grunt-eslint": "^18.1.0",
+    "grunt-eslint": "^19.0.0",
     "grunt-image-embed": "^0.3.3",
     "grunt-preprocess": "^5.1.0",
     "grunt-rsync": "^1.0.1",
@@ -26,8 +26,8 @@
     "jshint-loader": "^0.8.3",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.13.1",
-    "stylus-loader": "^2.1.0",
-    "superagent": "^2.0.0-alpha.3",
+    "stylus-loader": "^2.1.1",
+    "superagent": "^2.0.0",
     "time-grunt": "^1.3.0",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
@@ -35,9 +35,9 @@
   "dependencies": {
     "eases": "^1.0.8",
     "fastclick": "^1.0.6",
-    "gsap": "^1.18.4",
-    "lodash": "^4.12.0",
+    "gsap": "^1.18.5",
+    "lodash": "^4.13.1",
     "nib": "^1.1.0",
-    "superagent": "^2.0.0-alpha.3"
+    "superagent": "^2.0.0"
   }
 }

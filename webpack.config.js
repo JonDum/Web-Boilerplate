@@ -4,10 +4,10 @@ var path = require('path');
 
 module.exports = {
 
-    entry: ['main'],
+    entry: ['js/main'],
 
     output: {
-        path: __dirname + '/build/js',
+        path: path.join(__dirname, '/build/js'),
         publicPath: 'js/',
         filename: 'main.js',
         chunkFilename: 'chunks/[name].[chunkhash].js',
@@ -15,7 +15,7 @@ module.exports = {
     },
 
     resolve: {
-        root: process.cwd(),
+        root: path.join(__dirname, '/src'),
         modulesDirectories: ['node_modules', 'css', 'js', 'templates'],
         extensions: ['', '.js', '.styl', '.html'],
     },
@@ -65,7 +65,7 @@ module.exports = {
         inline: true,
     },
 
-    resolveLoader: {                                                                                
-        root: path.join(__dirname, 'node_modules')                                                  
+    resolveLoader: {
+        root: path.join(__dirname, 'node_modules')
     },
 }
