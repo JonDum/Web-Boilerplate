@@ -87,15 +87,15 @@ _layout()
 		align-content flex-end
 		align-items flex-end
 	else if 'middle' in a
-	if 'tight' in a
-		align-content center
+		if 'tight' in a
+			align-content center
 		align-items center
 	else if 'stretch' in a
 		align-content stretch
 
 
 	if 'vertical' in a
-	flex-direction column
+		flex-direction column
 
 	//alignment horizontal axis
 	if 'left' in a
