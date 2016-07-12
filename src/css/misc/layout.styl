@@ -94,43 +94,6 @@ _layout()
 		align-content stretch
 
 
-	if 'vertical' in a
-		flex-direction column
-
-	//alignment horizontal axis
-	if 'left' in a
-		align-items flex-start
-		unless 'loose' in a
-			align-content flex-start unless 'around' in a or 'between' in a
-
-	if 'right' in a
-		align-items flex-end
-		unless 'loose' in a
-			align-content flex-end unless 'around' in a or 'between' in a
-
-	if 'center' in a
-		align-items center
-		unless 'loose' in a
-			align-content center unless 'around' in a or 'between' in a
-
-	//alignment vertical axis
-	if 'top' in a
-		justify-content flex-start
-	if 'bottom' in a
-		justify-content flex-end
-	if 'middle' in a
-		justify-content center
-
-	if 'around' in a
-		align-content space-around
-		justify-content space-around
-	if 'between' in a
-		align-content space-between
-		justify-content space-between
-	if 'stretch' in a
-		justify-content stretch
-
-
 $layout_cache = {}
 
 layout()
