@@ -63,35 +63,73 @@ _layout()
 	if 'horizontal' in a
 		flex-direction row
 
-	// alignment horizontal axis
-	if 'left' in a
-		justify-content flex-start unless 'around' in a or 'between' in a
-	if 'right' in a
-		justify-content flex-end unless 'around' in a or 'between' in a
-	if 'center' in a
-		justify-content center unless 'around' in a or 'between' in a
+		// alignment horizontal axis
+		if 'left' in a
+			justify-content flex-start unless 'around' in a or 'between' in a
+		if 'right' in a
+			justify-content flex-end unless 'around' in a or 'between' in a
+		if 'center' in a
+			justify-content center unless 'around' in a or 'between' in a
 
-	if 'around' in a
-		justify-content space-around
-	if 'between' in a
-		justify-content space-between
+		if 'around' in a
+			justify-content space-around
+		if 'between' in a
+			justify-content space-between
 
-	// this s a nice default to have
-	align-content center unless 'around' in a or 'between' in a
+		// this is a nice default to have, vertically center by default
+		align-content center unless 'around' in a or 'between' in a
 
-	//alignment vertical axis
-	if 'top' in a
-		align-content flex-start
-		align-items flex-start
-	else if 'bottom' in a
-		align-content flex-end
-		align-items flex-end
-	else if 'middle' in a
-		if 'tight' in a
-			align-content center
-		align-items center
-	else if 'stretch' in a
-		align-content stretch
+		//alignment vertical axis
+		if 'top' in a
+			align-content flex-start
+			align-items flex-start
+		else if 'bottom' in a
+			align-content flex-end
+			align-items flex-end
+		else if 'middle' in a
+			if 'tight' in a
+				align-content center
+			align-items center
+		else if 'stretch' in a
+			align-content stretch
+
+
+	if 'vertical' in a
+		flex-direction column
+
+		//alignment horizontal axis
+		if 'left' in a
+			align-items flex-start
+			unless 'loose' in a
+				align-content flex-start unless 'around' in a or 'between' in a
+
+		if 'right' in a
+			align-items flex-end
+			unless 'loose' in a
+				align-content flex-end unless 'around' in a or 'between' in a
+
+		if 'center' in a
+			align-items center
+			unless 'loose' in a
+				align-content center unless 'around' in a or 'between' in a
+
+		//alignment vertical axis
+		if 'top' in a
+			justify-content flex-start
+		if 'bottom' in a
+			justify-content flex-end
+		if 'middle' in a
+			justify-content center
+
+		if 'around' in a
+			align-content space-around
+			justify-content space-around
+		if 'between' in a
+			align-content space-between
+			justify-content space-between
+		if 'stretch' in a
+			justify-content stretch
+
 
 
 $layout_cache = {}
