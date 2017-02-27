@@ -15,47 +15,40 @@ module.exports = {
     },
 
     resolve: {
-        root: path.join(__dirname, '/src'),
-        modulesDirectories: ['node_modules', 'css', 'js', 'templates'],
-        extensions: ['', '.js', '.styl', '.html'],
-    },
-
-    stylus: {
-        use: [(require('nib')())],
-        import: [__dirname + '/css/includes/*']
+        modules: [path.join(__dirname, '/src'), 'node_modules', 'css', 'js', 'js/lib', 'templates'],
+        extensions: ['.js', '.styl', '.html'],
     },
 
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js$/,
-                loader: 'babel',
-                exclude: /(node_modules|lib|parsers|syntax)/,
-                query: {
-                    cacheDirectory: true,
-                    presets: ['es2015']
-                }
+                exclude: /(node_modules|lib)/,
+                use: [
+					{
+						loader: 'babel-loader',
+						options: { presets: [ ['es2015', { modules: false }]] }
+					}
+				]
             },
-            {test: /\.styl$/, loader: 'style!css!stylus-loader'},
-            {test: /\.css$/,  loader: 'style!css'},
-            {test: /\.png$/,  loader: 'url?limit=100000&mimetype=image/png'},
-            {test: /\.jpg$/,  loader: 'file'},
-            {test: /\.html/,  loader: 'ractive'},
-            {test: /\.json/,  loader: 'json'},
-            {test: /\.txt/,   loader: 'raw'},
+            {
+				test: /\.styl$/,
+				use: [
+					{loader: 'style-loader'},
+					{loader: 'css-loader'},
+					{loader: 'stylus-loader', options: { use: [(require('nib')())], import: [__dirname + '/css/includes/*']}}
+				],
+			},
+            {test: /\.css$/,  use: ['style-loader','css-loader']},
+            {test: /\.png$/,  use: ['url-loader?limit=100000&mimetype=image/png']},
+            {test: /\.jpg$/,  use: ['file-loader']},
+            {test: /\.html/,  use: ['ractive-loader']},
+            {test: /\.txt/,   use: ['raw-loader']},
         ]
     },
 
     plugins: [
-        new webpack.optimize.DedupePlugin()
     ],
-
-    eslint: {
-        configFile: '.eslintrc'
-    },
-
-    debug: true,
-    production: false,
 
     devtool: "cheap-source-map",
 
@@ -65,7 +58,4 @@ module.exports = {
         inline: true,
     },
 
-    resolveLoader: {
-        root: path.join(__dirname, 'node_modules')
-    },
 }
