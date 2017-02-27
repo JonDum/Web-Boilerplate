@@ -1,4 +1,5 @@
 
+
 /*
 	This helper function simplifies some of the flexbox
 	terminology. There are some layouts too advanced for this,
@@ -52,7 +53,11 @@
 */
 
 _layout()
-	a = split(' ', arguments)
+	a = arguments
+
+	// support for list or string arguments
+	if a[1] == null
+		a = split(' ', arguments)
 
 	if 'wrap-reverse' in a
 		flex-wrap wrap-reverse
@@ -135,7 +140,7 @@ _layout()
 $layout_cache = {}
 
 layout()
-	a = join(' ',arguments)
+	a = join(' ', arguments)
 	unless $layout_cache[a]
 		$layout_cache[a] = ()
 	push($layout_cache[a], selector())
