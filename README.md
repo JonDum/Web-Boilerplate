@@ -29,7 +29,7 @@ The compiled files will be in `build/` with a directory structure like this:
       ▸ scaffolding/ <--- Layout, Grid, etc.
       ▸ typography/
         ... <--- whatever else you need
-        common.styl <--- The main stylesheet. Any other top-level .styl file in css/ is exported to build/css as well
+        common.styl <--- The main stylesheet. Any other top-level .styl files in css/ are exported to build/css as well
     ▸ js/
         ...
         main.js <!-- main entry point for Webpack. Make additional entry points as needed.
