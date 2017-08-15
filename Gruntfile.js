@@ -21,7 +21,12 @@ module.exports = function(grunt) {
 		},
 
 		webpack: {
-			options: require('./webpack.config.js'),
+			options: (() => {
+				const opts = require('./webpack.config.js')
+				delete opts.plugins;
+				delete opts.devtool;
+				return opts;
+			})(),
 			development: {
 				plugins: [
                     new webpack.DefinePlugin({
