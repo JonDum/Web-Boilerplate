@@ -88,8 +88,8 @@ module.exports = function(grunt) {
 				files: [
 					{
 						expand: true,
-						cwd: 'src/pages/',
-						src: ['**/*.html'],
+						cwd: 'src/',
+						src: ['pages/**/*.html', '*.html'],
 						dest: 'build/'
 					},
                 ],
@@ -105,8 +105,8 @@ module.exports = function(grunt) {
 				files: [
 					{
 						expand: true,
-						cwd: 'src/pages/',
-						src: ['**/*.html'],
+						cwd: 'src/',
+						src: ['pages/**/*.html', '*.html'],
 						dest: 'build/'
 					},
                 ],
