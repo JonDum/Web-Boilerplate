@@ -1,4 +1,3 @@
-
 /**
  * Converts a webpack context into a clean key:value object
  * where the key is the name of the file without extension and
@@ -23,11 +22,18 @@ module.exports = function(context, extension) {
 
 	/* jshint -W033 */
 	context.keys()
-	.filter(function(s)	 { 
+	.filter(function(s) {
 		return !regex.test(s);
 	})
 	.forEach(function(k) {
-		ret[k.replace('./', '')] = context(k);
+		let module = context(k);
+		if(module.__esModule) {
+			if(DEBUG && !module.default) {
+				console.warn('No default export for '+k);
+			}
+			module = module.default;
+		}
+		ret[k.replace('./', '')] = module;
 	});
 
 	return ret;
