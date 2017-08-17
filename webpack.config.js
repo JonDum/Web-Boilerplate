@@ -27,12 +27,8 @@ module.exports = {
 					{
 						loader: 'babel-loader',
 						options: {
-							presets: [
-								['es2015', { modules: false }],
-							],
-							plugins: [
-								"add-module-exports"
-							]
+							presets: ['es2015'],
+							plugins: ['add-module-exports']
 						}
 					}
 				]
