@@ -33,6 +33,7 @@
     "webpack-dev-server": "^1.16.3"
   },
   "dependencies": {
+    "babel-plugin-add-module-exports": "^0.2.1",
     "eases": "^1.0.8",
     "fastclick": "^1.0.6",
     "gsap": "^1.18.5",
